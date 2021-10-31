@@ -1,16 +1,18 @@
 package esgi.al.cc1.domain;
 
+import java.util.UUID;
+
 import esgi.al.cc1.kernel.Entity;
 
 @Entity
 public class User {
-  private final UserId id;
+  private final UUID id;
   private final String firstName;
   private final String lastName;
   private final String email;
   private final int age;
 
-  private User(UserId id, String firstName, String lastName, String email, int age) {
+  private User(UUID id, String firstName, String lastName, String email, int age) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -18,13 +20,11 @@ public class User {
     this.age = age;
   }
 
-  public static User of(String firstName, String lastName, String email, int age) {
-    // TODO find best option between this and dependency injection
-    UserId id = UserId.generateId();
+  public static User of(UUID id, String firstName, String lastName, String email, int age) {
     return new User(id, firstName, lastName, email, age);
   }
 
-  public UserId getId() {
+  public UUID getId() {
     return id;
   }
 
