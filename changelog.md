@@ -14,6 +14,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - stop using UserId for wrapping UUID use UUID directly
 
+## [0.1.1] - 2021-11-03
+I think now my main job is to create the command for apply for membership
+The apply for membership can be see in many maner. I want to bring out two :
+- request for register
+- request upgrade of the user status
+
+### Added
+- create a command
+- create custom Domain exception
+- move forward for userRepository and UserService
+
+No TDD yet only structures
+
+### Changed
+- stop using UserId for wrapping UUID use UUID directly
+
 ### Removed
 
 ### Fixed
