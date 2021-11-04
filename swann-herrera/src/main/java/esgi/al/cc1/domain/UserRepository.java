@@ -1,11 +1,12 @@
 package esgi.al.cc1.domain;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserRepository {
-  User findById(UUID id);
+  Optional<User> findById(UUID id);
 
-  User findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
   void add(User user);
 }
