@@ -17,7 +17,7 @@ public class User {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.email = email;
+    this.email = email.toLowerCase();
     this.age = age;
   }
 
