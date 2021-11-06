@@ -4,15 +4,16 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 class UserTest {
-  private UUID uuid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
-  private String firstName = "Swann";
-  private String lastName = "HERRERA";
-  private String email = "swann@devloup.dev";
-  private int age = 20;
+  private final UUID uuid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
+  private final String firstName = "Swann";
+  private final String lastName = "HERRERA";
+  private final String email = "swann@devloup.dev";
+  private final int age = 20;
 
   @Test
   void test_creation_of_user() {
@@ -55,5 +56,41 @@ class UserTest {
     assertThrows(IllegalArgumentException.class, () -> {
       User.of(uuid, firstName, lastName, email, age);
     });
+  }
+
+  @Test
+  void test_error_message_for_userCreation_with_bad_email() {
+    String email = "random string";
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      User.of(uuid, firstName, lastName, email, age);
+    });
+    String message = exception.getMessage();
+    assertTrue(message.contains("invalid email"));
+  }
+
+  @Test
+  void test_error_message_for_userCreation_with_bad_field() {
+    String email = "random string";
+    String lastName = null;
+    UUID uuid = null;
+    String firstName = null;
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      User.of(uuid, firstName, lastName, email, age);
+    });
+    String message = exception.getMessage();
+    assertTrue(message.contains("invalid email"));
+    assertTrue(message.contains("bad lastname"));
+    assertTrue(message.contains("bad firstname"));
+    assertTrue(message.contains("bad id"));
+  }
+
+  @Test
+  void test_user_minor() {
+    int age = 0;
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+      User.of(uuid, firstName, lastName, email, age);
+    });
+    String message = exception.getMessage();
+    assertTrue(message.contains("user should be major"));
   }
 }
