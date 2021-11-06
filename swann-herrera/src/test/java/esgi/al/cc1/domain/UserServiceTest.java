@@ -1,14 +1,14 @@
 package esgi.al.cc1.domain;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import esgi.al.cc1.commands.create_user.CreateUserCommand;
 
@@ -32,18 +32,18 @@ class FakeUserRepository implements UserRepository {
 
 }
 
-public class UserServiceTest {
+class UserServiceTest {
   UserRepository userRepository = new FakeUserRepository();
 
   @Test
-  public void test_create_user_with_valid_data_is_a_success() {
+  void test_create_user_with_valid_data_is_a_success() {
     UserService userService = new UserService(userRepository);
     boolean response = userService.createUser(new CreateUserCommand("Swann", "HERRERA", "swann@devloup.dev", 20));
     assertTrue(response);
   }
 
   @Test
-  public void test_create_user_with_valid_data_add_a_user_to_the_repo() {
+  void test_create_user_with_valid_data_add_a_user_to_the_repo() {
     String userEmail = "swann@devloup.dev";
     UserService userService = new UserService(userRepository);
 
