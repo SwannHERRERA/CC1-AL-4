@@ -34,6 +34,12 @@ No TDD yet only structures
 
 ### Fixed
 
+## 2021-11-04
+
+### Added
+- user Service implementation
+- test
+- fake Implementation of repo in test
 [Unreleased]: 
 <!--
 TODO
