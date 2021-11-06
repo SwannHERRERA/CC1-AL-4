@@ -14,7 +14,9 @@ public class EventBus<E extends Event> {
 
   public void notifyListeners(E event) {
     var viewers = this.listeners.get(event.getClass());
-    viewers.forEach(sub -> sub.onEvent(event));
+    if (viewers != null && !viewers.isEmpty()) {
+      viewers.forEach(sub -> sub.onEvent(event));
+    }
   }
 
   public void registerListener(Class<E> classE, Listener<E> listener) throws NullPointerException {
