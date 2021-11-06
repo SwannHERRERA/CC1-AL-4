@@ -4,34 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-
 import org.junit.jupiter.api.Test;
 
 import esgi.al.cc1.commands.create_user.CreateUserCommand;
-
-class FakeUserRepository implements UserRepository {
-  List<User> userList = new ArrayList<>();
-
-  @Override
-  public Optional<User> findById(UUID id) {
-    return userList.stream().filter(u -> u.getId().equals(id)).findFirst();
-  }
-
-  @Override
-  public Optional<User> findByEmail(String email) {
-    return userList.stream().filter(u -> u.getEmail().equals(email)).findFirst();
-  }
-
-  @Override
-  public void add(User user) {
-    userList.add(user);
-  }
-
-}
 
 class UserServiceTest {
   private final UserRepository userRepository = new FakeUserRepository();
@@ -60,10 +35,12 @@ class UserServiceTest {
 
   @Test
   void test_add_two_users_with_the_same_email() {
-    userService.createUser(new CreateUserCommand(firstName, lastName, email, age));
-    assertThrows(IllegalArgumentException.class, () -> {
-      userService.createUser(new CreateUserCommand("different firstname", "different lastname", email, 80));
-    });
+    CreateUserCommand command1 = new CreateUserCommand(firstName, lastName, email, age);
+    userService.createUser(command1);
+    CreateUserCommand command2 = new CreateUserCommand("different firstname", "different lastname", email, 80);
+    Exception exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(command2));
+    String message = exception.getMessage();
+    assertTrue(message.contains("Email already exists"));
 
   }
 }
