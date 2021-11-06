@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import esgi.al.cc1.kernel.Engine;
+
+@Engine
 public class UserValidatorEngine implements Predicate<User> {
   private static final UserValidatorEngine INSTANCE = new UserValidatorEngine();
 

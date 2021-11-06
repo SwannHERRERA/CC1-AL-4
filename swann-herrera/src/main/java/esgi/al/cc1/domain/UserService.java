@@ -4,7 +4,9 @@ import java.util.UUID;
 
 import esgi.al.cc1.commands.create_user.CreateUserCommand;
 import esgi.al.cc1.commands.create_user.CreateUserUseCase;
+import esgi.al.cc1.kernel.Service;
 
+@Service
 public class UserService implements CreateUserUseCase {
   final UserRepository userRepository;
   final EventBus eventBus;
