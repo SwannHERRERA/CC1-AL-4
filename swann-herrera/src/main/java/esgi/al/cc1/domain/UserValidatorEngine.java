@@ -35,9 +35,9 @@ public class UserValidatorEngine implements Predicate<User> {
   }
 
   public String getErrorMessage(User user) {
-    StringBuilder errorMessage = new StringBuilder();
-    String lineSeparator = System.getProperty("line.separator");
-    EmailValidator emailValidator = EmailValidator.getInstance();
+    var errorMessage = new StringBuilder();
+    var lineSeparator = System.getProperty("line.separator");
+    var emailValidator = EmailValidator.getInstance();
     if (test(user)) {
       return null;
     }

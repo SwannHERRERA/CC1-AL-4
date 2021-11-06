@@ -23,8 +23,8 @@ public class User {
 
   public static User of(UUID id, String firstName, String lastName, String email, int age)
       throws IllegalArgumentException {
-    User user = new User(id, firstName, lastName, email, age);
-    UserValidatorEngine validationEngine = UserValidatorEngine.getInstance();
+    var user = new User(id, firstName, lastName, email, age);
+    var validationEngine = UserValidatorEngine.getInstance();
     if (validationEngine.test(user)) {
       return user;
     }

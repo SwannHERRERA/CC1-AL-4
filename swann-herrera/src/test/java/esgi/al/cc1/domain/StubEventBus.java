@@ -1,7 +1,7 @@
 package esgi.al.cc1.domain;
 
-public class StubEventBus<E extends Event> extends EventBus<E> {
+public class StubEventBus extends EventBus {
   @Override
-  public void notifyListeners(E event) {
+  public void notifyListeners(Event event) {
   }
 }
