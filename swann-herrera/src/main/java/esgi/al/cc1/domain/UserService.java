@@ -9,15 +9,15 @@ import esgi.al.cc1.kernel.Service;
 @Service
 public class UserService implements CreateUserUseCase {
   final UserRepository userRepository;
-  final EventBus eventBus;
+  final EventBus<CreateUserEvent> eventBus;
 
-  public UserService(UserRepository userRepository, EventBus eventBus) {
+  public UserService(UserRepository userRepository, EventBus<CreateUserEvent> eventBus) {
     this.userRepository = userRepository;
     this.eventBus = eventBus;
   }
 
   @Override
-  public boolean createUser(CreateUserCommand command) {
+  public boolean createUser(CreateUserCommand command) throws IllegalArgumentException {
     var user = User.of(UUID.randomUUID(), command.firstName, command.lastName, command.email, command.age);
     userRepository.add(user);
     eventBus.notifyListeners(CreateUserEvent.withCommandAndUser(command, user));

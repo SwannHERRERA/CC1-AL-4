@@ -11,5 +11,5 @@ public interface UserRepository {
 
   Optional<User> findByEmail(String email);
 
-  void add(User user);
+  void add(User user) throws IllegalArgumentException;
 }
