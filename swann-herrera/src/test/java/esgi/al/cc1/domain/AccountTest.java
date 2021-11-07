@@ -1,12 +1,15 @@
 package esgi.al.cc1.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
+
+import esgi.al.cc1.domain.exception.NegativeMoneyAmount;
 
 public class AccountTest {
   private final EventBus<PaymentEvent> bus = new EventBus<>();
@@ -36,7 +39,27 @@ public class AccountTest {
 
   @Test
   void test_creation_with_negative_balance() {
-    Exception exception = assertThrows(IllegalArgumentException.class, () -> Money.of(-50));
-    assertTrue(exception.getMessage().contains("balance must be positive"));
+    assertThrows(NegativeMoneyAmount.class, () -> Money.of(-50));
+  }
+
+  @Test
+  void test_send_money() {
+    var money = Money.of(200);
+    var sender = Account.of(money, bus);
+    var reciver = Account.of(Money.ZERO, bus);
+    var moneySend = Money.of(20);
+    assertTrue(sender.sendMoney(moneySend, reciver));
+    assertEquals(moneySend.getAmount(), reciver.getBalance().getAmount());
+  }
+
+  @Test
+  void test_send_more_money_money_than_account_have() {
+    var money = Money.of(20);
+    var sender = Account.of(money, bus);
+    var reciver = Account.of(Money.ZERO, bus);
+    var moneySend = Money.of(200);
+    assertFalse(sender.sendMoney(moneySend, reciver));
+    assertEquals(money.getAmount(), sender.getBalance().getAmount());
+    assertEquals(money.ZERO.getAmount(), reciver.getBalance().getAmount());
   }
 }

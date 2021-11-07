@@ -2,6 +2,7 @@ package esgi.al.cc1.domain;
 
 import java.math.BigInteger;
 
+import esgi.al.cc1.domain.exception.NegativeMoneyAmount;
 import esgi.al.cc1.kernel.Entity;
 
 @Entity
@@ -21,9 +22,9 @@ public class Money {
     return this.amount.compareTo(money.amount) >= 1;
   }
 
-  public static Money of(long value) throws IllegalArgumentException {
+  public static Money of(long value) throws NegativeMoneyAmount {
     if (value < 0) {
-      throw new IllegalArgumentException("balance must be positive acctualy " + value);
+      throw new NegativeMoneyAmount(value);
     }
     return new Money(BigInteger.valueOf(value));
   }
@@ -32,16 +33,16 @@ public class Money {
     return new Money(a.amount.add(b.amount));
   }
 
+  public static Money subtract(Money a, Money b) {
+    return new Money(a.amount.subtract(b.amount));
+  }
+
   public Money minus(Money money) {
     return new Money(this.amount.subtract(money.amount));
   }
 
   public Money plus(Money money) {
     return new Money(this.amount.add(money.amount));
-  }
-
-  public static Money subtract(Money a, Money b) {
-    return new Money(a.amount.subtract(b.amount));
   }
 
   public BigInteger getAmount() {

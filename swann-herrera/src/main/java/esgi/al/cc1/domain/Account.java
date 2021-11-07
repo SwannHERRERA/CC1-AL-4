@@ -7,14 +7,13 @@ import esgi.al.cc1.kernel.Entity;
 
 @Entity
 public class Account {
-  private final Money balance;
+  private Money balance;
   private final EventBus<PaymentEvent> transactionsBus;
   private final UUID id;
 
   private Account(UUID id, Money balance, EventBus<PaymentEvent> transactionsBus) throws IllegalArgumentException {
     this.id = id;
-    var money = Objects.requireNonNull(balance);
-    this.balance = money;
+    this.balance = Objects.requireNonNull(balance);
     this.transactionsBus = transactionsBus;
   }
 
@@ -33,5 +32,13 @@ public class Account {
 
   public UUID getId() {
     return id;
+  }
+
+  public boolean sendMoney(Money moneySend, Account reciver) {
+    if (!balance.isGreaterThanOrEqualTo(moneySend)) {
+      return false;
+    }
+    reciver.balance = reciver.balance.plus(moneySend);
+    return true;
   }
 }
