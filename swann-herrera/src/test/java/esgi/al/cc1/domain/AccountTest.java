@@ -4,15 +4,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 
 import esgi.al.cc1.domain.exception.NegativeMoneyAmount;
 
 public class AccountTest {
   private final EventBus<PaymentEvent> bus = new EventBus<>();
+
+  private ArgumentCaptor<PaymentEvent> paymentCaptor = ArgumentCaptor.forClass(PaymentEvent.class);
 
   @Test
   void test_creation() {
@@ -60,6 +66,18 @@ public class AccountTest {
     var moneySend = Money.of(200);
     assertFalse(sender.sendMoney(moneySend, reciver));
     assertEquals(money.getAmount(), sender.getBalance().getAmount());
-    assertEquals(money.ZERO.getAmount(), reciver.getBalance().getAmount());
+    assertEquals(Money.ZERO.getAmount(), reciver.getBalance().getAmount());
+  }
+
+  @Test
+  void test_event_bus_is_imformed() {
+    var money = Money.of(200);
+    var moneySend = Money.of(20);
+    var sender = Account.of(money, bus);
+    var reciver = Account.of(Money.ZERO, bus);
+    var listener = Mockito.spy(new PaymentListener());
+    bus.registerListener(listener);
+    assertTrue(sender.sendMoney(moneySend, reciver));
+    verify(listener, times(1)).accept(paymentCaptor.capture());
   }
 }

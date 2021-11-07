@@ -9,20 +9,23 @@ public class PaymentEvent implements Event {
   private final Account source;
   private final Account destination;
   private final TransactionStatus status;
+  private final Money amount;
 
-  private PaymentEvent(UUID id, ZonedDateTime occurrenceDate, Account source, Account destination,
+  private PaymentEvent(UUID id, ZonedDateTime occurrenceDate, Account source, Account destination, Money amount,
       TransactionStatus status) {
     this.id = id;
     this.occurrenceDate = occurrenceDate;
     this.source = source;
     this.destination = destination;
     this.status = status;
+    this.amount = amount;
   }
 
-  public static PaymentEvent getPaymentEvent(Account source, Account destination, TransactionStatus status) {
+  public static PaymentEvent createPaymentEvent(Account source, Account destination, Money amount,
+      TransactionStatus status) {
     var id = UUID.randomUUID();
     var occurrenceDate = ZonedDateTime.now();
-    return new PaymentEvent(id, occurrenceDate, source, destination, status);
+    return new PaymentEvent(id, occurrenceDate, source, destination, amount, status);
   }
 
   @Override
@@ -47,4 +50,7 @@ public class PaymentEvent implements Event {
     return status;
   }
 
+  public Money getAmount() {
+    return amount;
+  }
 }

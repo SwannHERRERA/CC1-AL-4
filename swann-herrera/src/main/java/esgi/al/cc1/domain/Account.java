@@ -36,9 +36,13 @@ public class Account {
 
   public boolean sendMoney(Money moneySend, Account reciver) {
     if (!balance.isGreaterThanOrEqualTo(moneySend)) {
+      var event = PaymentEvent.createPaymentEvent(this, reciver, moneySend, TransactionStatus.ERROR);
+      transactionsBus.notifyListeners(event);
       return false;
     }
     reciver.balance = reciver.balance.plus(moneySend);
+    var event = PaymentEvent.createPaymentEvent(this, reciver, moneySend, TransactionStatus.SUCCESSED);
+    transactionsBus.notifyListeners(event);
     return true;
   }
 }

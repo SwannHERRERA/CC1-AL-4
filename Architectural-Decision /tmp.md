@@ -6,3 +6,9 @@ J'ai fais des test avec le nombre de call sur des dummys pour tester l'event bus
 Je pars du principe qu'un Money ne peut pas avoir de valeur négative, c'est potentiellement faut, mais dans ce cas le code sera facile a modifier
 Le choix de l'exception custom sur la création d'argent
 Parler de primitive obession pour money
+
+TODO
+last step
+- create payment command
+- create senario in main
+- crée un listener de create user

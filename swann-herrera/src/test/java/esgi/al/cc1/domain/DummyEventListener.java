@@ -6,8 +6,4 @@ public class DummyEventListener implements Listener<DummyEvent> {
   public void accept(DummyEvent t) {
   }
 
-  @Override
-  public void onEvent(DummyEvent event) {
-  }
-
 }
