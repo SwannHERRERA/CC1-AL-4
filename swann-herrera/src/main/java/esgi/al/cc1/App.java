@@ -6,6 +6,7 @@ import esgi.al.cc1.infrastructure.MemoryUserRepository;
 import esgi.al.cc1.domain.EventBus;
 import esgi.al.cc1.domain.Money;
 import esgi.al.cc1.domain.PaymentEvent;
+import esgi.al.cc1.domain.Account;
 import esgi.al.cc1.domain.CreateUserEvent;
 import esgi.al.cc1.domain.EnrollmentListener;
 
@@ -15,15 +16,19 @@ import esgi.al.cc1.domain.EnrollmentListener;
  */
 public class App {
     public static void main(String[] args) {
-        var email = "swann@devloup.dev";
-        var userRepo = new MemoryUserRepository();
-        var listener = new EnrollmentListener();
         var createUserBus = new EventBus<CreateUserEvent>();
         var paymentBus = new EventBus<PaymentEvent>();
+        var email = "swann@devloup.dev";
+        var userRepo = new MemoryUserRepository();
+        var appAccount = Account.of(Money.ZERO, paymentBus);
+        var listener = new EnrollmentListener(appAccount);
         var baseMoney = Money.of(Config.BASE_MONEY);
         var userService = new UserService(userRepo, createUserBus, paymentBus);
         createUserBus.registerListener(listener);
         userService.createUser(new CreateUserCommand("Swann", "HERRERA", email, 20, baseMoney));
+
+        var user = userRepo.findByEmail(email).get();
+        System.out.println(user.getAccount().getBalance());
 
     }
 }

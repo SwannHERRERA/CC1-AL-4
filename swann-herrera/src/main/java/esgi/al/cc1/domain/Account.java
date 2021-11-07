@@ -34,14 +34,15 @@ public class Account {
     return id;
   }
 
-  public boolean sendMoney(Money moneySend, Account reciver) {
+  public boolean sendMoney(Money moneySend, Account dest) {
     if (!balance.isGreaterThanOrEqualTo(moneySend)) {
-      var event = PaymentEvent.createPaymentEvent(this, reciver, moneySend, TransactionStatus.ERROR);
+      var event = PaymentEvent.createPaymentEvent(this, dest, moneySend, TransactionStatus.ERROR);
       transactionsBus.notifyListeners(event);
       return false;
     }
-    reciver.balance = reciver.balance.plus(moneySend);
-    var event = PaymentEvent.createPaymentEvent(this, reciver, moneySend, TransactionStatus.SUCCESSED);
+    dest.balance = dest.balance.plus(moneySend);
+    balance = balance.minus(moneySend);
+    var event = PaymentEvent.createPaymentEvent(this, dest, moneySend, TransactionStatus.SUCCESSED);
     transactionsBus.notifyListeners(event);
     return true;
   }

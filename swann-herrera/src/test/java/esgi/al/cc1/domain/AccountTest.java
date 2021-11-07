@@ -56,6 +56,7 @@ public class AccountTest {
     var moneySend = Money.of(20);
     assertTrue(sender.sendMoney(moneySend, reciver));
     assertEquals(moneySend.getAmount(), reciver.getBalance().getAmount());
+    // assert sender money have decrese
   }
 
   @Test
