@@ -11,18 +11,20 @@ public class User {
   private final String lastName;
   private final String email;
   private final int age;
+  private final Account account;
 
-  private User(UUID id, String firstName, String lastName, String email, int age) {
+  private User(UUID id, String firstName, String lastName, String email, int age, Account account) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email.toLowerCase();
     this.age = age;
+    this.account = account;
   }
 
-  public static User of(UUID id, String firstName, String lastName, String email, int age)
+  public static User of(UUID id, String firstName, String lastName, String email, int age, Account account)
       throws IllegalArgumentException {
-    var user = new User(id, firstName, lastName, email, age);
+    var user = new User(id, firstName, lastName, email, age, account);
     var validationEngine = UserValidatorEngine.getInstance();
     if (validationEngine.test(user)) {
       return user;
@@ -48,6 +50,10 @@ public class User {
 
   public int getAge() {
     return age;
+  }
+
+  public Account getAccount() {
+    return account;
   }
 
 }

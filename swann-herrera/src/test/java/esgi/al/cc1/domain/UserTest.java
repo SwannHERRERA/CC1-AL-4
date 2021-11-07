@@ -14,11 +14,12 @@ class UserTest {
   private final String lastName = "HERRERA";
   private final String email = "swann@devloup.dev";
   private final int age = 20;
+  private final Account account = Account.of(Money.ZERO, new EventBus<PaymentEvent>());
 
   @Test
   void test_creation_of_user() {
 
-    User user = User.of(uuid, firstName, lastName, email, age);
+    User user = User.of(uuid, firstName, lastName, email, age, account);
     assertEquals(uuid, user.getId());
     assertEquals(firstName, user.getFirstName());
     assertEquals(lastName, user.getLastName());
@@ -28,7 +29,7 @@ class UserTest {
 
   @Test
   void test_creation_of_user_with_non_lowercase_email_should_convert_it_to_lowercase() {
-    User user = User.of(uuid, firstName, lastName, email, age);
+    User user = User.of(uuid, firstName, lastName, email, age, account);
     assertEquals(email.toLowerCase(), user.getEmail());
   }
 
@@ -36,7 +37,7 @@ class UserTest {
   void test_user_creation_with_non_valid_email() {
     String email = "random string";
     assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
   }
 
@@ -44,7 +45,7 @@ class UserTest {
   void test_user_creation_with_non_valid_name() {
     String lastName = null;
     assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
   }
 
@@ -54,7 +55,7 @@ class UserTest {
     UUID uuid = null;
     String firstName = null;
     assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
   }
 
@@ -62,7 +63,7 @@ class UserTest {
   void test_error_message_for_userCreation_with_bad_email() {
     String email = "random string";
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
     String message = exception.getMessage();
     assertTrue(message.contains("invalid email"));
@@ -75,7 +76,7 @@ class UserTest {
     UUID uuid = null;
     String firstName = null;
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
     String message = exception.getMessage();
     assertTrue(message.contains("invalid email"));
@@ -88,7 +89,7 @@ class UserTest {
   void test_user_minor() {
     int age = 0;
     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-      User.of(uuid, firstName, lastName, email, age);
+      User.of(uuid, firstName, lastName, email, age, account);
     });
     String message = exception.getMessage();
     assertTrue(message.contains("user should be major"));
