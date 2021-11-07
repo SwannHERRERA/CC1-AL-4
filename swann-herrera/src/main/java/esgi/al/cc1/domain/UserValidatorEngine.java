@@ -5,6 +5,9 @@ import java.util.function.Predicate;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
+import esgi.al.cc1.kernel.Engine;
+
+@Engine
 public class UserValidatorEngine implements Predicate<User> {
   private static final UserValidatorEngine INSTANCE = new UserValidatorEngine();
 
@@ -35,9 +38,9 @@ public class UserValidatorEngine implements Predicate<User> {
   }
 
   public String getErrorMessage(User user) {
-    StringBuilder errorMessage = new StringBuilder();
-    String lineSeparator = System.getProperty("line.separator");
-    EmailValidator emailValidator = EmailValidator.getInstance();
+    var errorMessage = new StringBuilder();
+    var lineSeparator = System.getProperty("line.separator");
+    var emailValidator = EmailValidator.getInstance();
     if (test(user)) {
       return null;
     }

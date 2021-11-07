@@ -10,6 +10,7 @@ import esgi.al.cc1.commands.create_user.CreateUserCommand;
 
 class UserServiceTest {
   private final UserRepository userRepository = new FakeUserRepository();
+  private final EventBus<CreateUserEvent> eventBus = new EventBus<>();
   private final String firstName = "Swann";
   private final String lastName = "HERRERA";
   private final String email = "swann@devloup.dev";
@@ -17,7 +18,7 @@ class UserServiceTest {
   private final UserService userService;
 
   UserServiceTest() {
-    userService = new UserService(userRepository);
+    userService = new UserService(userRepository, eventBus);
   }
 
   @Test

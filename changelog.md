@@ -40,6 +40,22 @@ No TDD yet only structures
 - user Service implementation
 - test
 - fake Implementation of repo in test
+
+## 2021-11-06
+
+### Added
+- add event bus system
+
+## 2021-11-06
+
+### Added
+- add event bus system
+- test for event bus
+- mockito
+
+### Changed
+- Event bus system now supports only one Event Type by Bus
+
 [Unreleased]: 
 <!--
 TODO
