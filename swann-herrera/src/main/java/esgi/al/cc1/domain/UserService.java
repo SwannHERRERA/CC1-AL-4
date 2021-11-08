@@ -8,9 +8,9 @@ import esgi.al.cc1.kernel.Service;
 
 @Service
 public class UserService implements CreateUserUseCase {
-  final UserRepository userRepository;
-  final EventBus<CreateUserEvent> enrollmentBus;
-  final EventBus<PaymentEvent> paymentBus;
+  private final UserRepository userRepository;
+  private final EventBus<CreateUserEvent> enrollmentBus;
+  private final EventBus<PaymentEvent> paymentBus;
 
   public UserService(UserRepository userRepository, EventBus<CreateUserEvent> enrollmentBus,
       EventBus<PaymentEvent> paymentBus) {

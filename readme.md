@@ -20,3 +20,6 @@ comportant une fonction d’ajout d’un membre.
 # Sujet
 
 ![sujet](assets/sujet.png)
+
+Test command
+`mvn clean jacoco:prepare-agent install jacoco:report`
