@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.infrastructure.EnrollmentListener;
 import esgi.al.cc1.infrastructure.MemoryUserRepository;
 import esgi.al.cc1.infrastructure.NullLogger;
 

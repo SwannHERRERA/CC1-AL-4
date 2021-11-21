@@ -22,7 +22,8 @@ public class UserService implements CreateUserUseCase {
   @Override
   public CreateUserEvent createUser(CreateUserCommand command) throws IllegalArgumentException {
     var account = Account.of(command.startBalance, paymentBus);
-    var user = User.of(UUID.randomUUID(), command.firstName, command.lastName, command.email, command.age, account);
+    var user = User.of(UUID.randomUUID(), command.firstName, command.lastName, command.email, command.age, account,
+        UserStatus.CURRENTLY_AUDITED);
     userRepository.add(user);
     var event = CreateUserEvent.withCommandAndUser(command, user);
     enrollmentBus.notifyListeners(event);

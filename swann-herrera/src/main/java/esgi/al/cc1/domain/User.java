@@ -12,24 +12,38 @@ public class User {
   private final String email;
   private final int age;
   private final Account account;
+  private UserStatus status;
 
-  private User(UUID id, String firstName, String lastName, String email, int age, Account account) {
+  public void setStatus(UserStatus status) {
+    this.status = status;
+  }
+
+  private User(UUID id, String firstName, String lastName, String email, int age, Account account, UserStatus status) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email.toLowerCase();
     this.age = age;
     this.account = account;
+    this.status = status;
   }
 
-  public static User of(UUID id, String firstName, String lastName, String email, int age, Account account)
-      throws IllegalArgumentException {
-    var user = new User(id, firstName, lastName, email, age, account);
+  public static User of(UUID id, String firstName, String lastName, String email, int age, Account account,
+      UserStatus status) throws IllegalArgumentException {
+    var user = new User(id, firstName, lastName, email, age, account, status);
     var validator = UserValidatorEngine.getInstance();
     if (validator.test(user)) {
       return user;
     }
     throw new IllegalArgumentException(validator.getErrorMessage(user));
+  }
+
+  public void validate() {
+    this.status = UserStatus.VERIFIED;
+  }
+
+  public void reject() {
+    this.status = UserStatus.REJECTED;
   }
 
   public UUID getId() {
@@ -56,4 +70,7 @@ public class User {
     return account;
   }
 
+  public UserStatus getStatus() {
+    return status;
+  }
 }

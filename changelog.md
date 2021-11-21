@@ -56,6 +56,14 @@ No TDD yet only structures
 ### Changed
 - Event bus system now supports only one Event Type by Bus
 
+## 2021-11-21
+
+### Added
+- docs
+- logging system
+- Gestion du cas ou l'utilisateur est refusé pour manque d'argent.
+
+
 [Unreleased]: 
 <!--
 TODO
