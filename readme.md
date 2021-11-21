@@ -1,7 +1,7 @@
 ## [Lien github]((https://github.com/SwannHERRERA/CC1-AL-4))
 
 [https://github.com/SwannHERRERA/CC1-AL-4](https://github.com/SwannHERRERA/CC1-AL-4)
-
+[tag du rendu](https://github.com/SwannHERRERA/CC1-AL-4/releases/tag/rendu)
 # Objectif du projet
 
 Conception & développement d’un module logiciel de gestion des inscriptions  d’une solution e-commerce, 
