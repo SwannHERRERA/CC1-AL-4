@@ -20,7 +20,7 @@ public class CreateUserCommand {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("CreateUserEvent: {" + System.lineSeparator());
+    sb.append("CreateUser: {" + System.lineSeparator());
     sb.append("firstName: " + firstName + System.lineSeparator());
     sb.append("lastName: " + lastName + System.lineSeparator());
     sb.append("email: " + email + System.lineSeparator());

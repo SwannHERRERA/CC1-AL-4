@@ -14,7 +14,7 @@ public class EnrollmentListener implements Listener<CreateUserEvent> {
   @Override
   public void accept(CreateUserEvent event) {
     var userAccount = event.getUser().getAccount();
-    logger.log("user added with command" + event.getCommand());
+    logger.log("user added with command " + event.getCommand());
     userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), reciver);
   }
 

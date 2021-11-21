@@ -21,5 +21,15 @@ comportant une fonction d’ajout d’un membre.
 
 ![sujet](assets/sujet.png)
 
+- il faut cd swannherrera
+- faire le logger tout ça
+- les choix techniques réalisé
+  - Passer par plusieurs event Bus
+  - utiliser un système de command
+  - primitive obcession
+  - le système d'account
+- il manque un système de gestion des dependence
+
+
 Test command
 `mvn clean jacoco:prepare-agent install jacoco:report`
