@@ -18,7 +18,7 @@ import esgi.al.cc1.domain.EnrollmentListener;
  */
 public class App {
     public static void main(String[] args) {
-        var logger = LoggerFactory.createFileLogger("/home/swann/repos/github.com/CC1-AL-4/log/file.log");
+        var logger = LoggerFactory.createFileLogger(Config.getLogFolder() + "file.log");
 
         var createUserBus = new EventBus<CreateUserEvent>();
         var paymentBus = new EventBus<PaymentEvent>();

@@ -58,7 +58,7 @@ public class AccountTest {
     assertTrue(sender.sendMoney(moneySend, reciver));
     assertEquals(moneySend.getAmount(), reciver.getBalance().getAmount());
     assertEquals(Money.subtract(money, moneySend).getAmount(), sender.getBalance().getAmount());
-    // assert sender money have decrese
+    assertEquals(Money.of(180).toString(), sender.getBalance().toString());
   }
 
   @Test

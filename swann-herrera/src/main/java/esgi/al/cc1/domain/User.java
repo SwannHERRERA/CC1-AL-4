@@ -25,11 +25,11 @@ public class User {
   public static User of(UUID id, String firstName, String lastName, String email, int age, Account account)
       throws IllegalArgumentException {
     var user = new User(id, firstName, lastName, email, age, account);
-    var validationEngine = UserValidatorEngine.getInstance();
-    if (validationEngine.test(user)) {
+    var validator = UserValidatorEngine.getInstance();
+    if (validator.test(user)) {
       return user;
     }
-    throw new IllegalArgumentException(validationEngine.getErrorMessage(user));
+    throw new IllegalArgumentException(validator.getErrorMessage(user));
   }
 
   public UUID getId() {

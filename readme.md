@@ -29,6 +29,9 @@ comportant une fonction d’ajout d’un membre.
   - primitive obcession
   - le système d'account
 - il manque un système de gestion des dependence
+- phylosophie YAGNI
+- mon account est différencié de la persistance
+- je me suis beaucoup inspiré pour la logger factory
 
 
 Test command

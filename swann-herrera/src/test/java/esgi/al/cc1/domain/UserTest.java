@@ -3,6 +3,7 @@ package esgi.al.cc1.domain;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -18,7 +19,6 @@ class UserTest {
 
   @Test
   void test_creation_of_user() {
-
     User user = User.of(uuid, firstName, lastName, email, age, account);
     assertEquals(uuid, user.getId());
     assertEquals(firstName, user.getFirstName());
@@ -93,5 +93,12 @@ class UserTest {
     });
     String message = exception.getMessage();
     assertTrue(message.contains("user should be major"));
+  }
+
+  @Test
+  void test_validation_engine_when_user_is_correct() {
+    User user = User.of(uuid, firstName, lastName, email, age, account);
+    UserValidatorEngine engine = UserValidatorEngine.getInstance();
+    assertNull(engine.getErrorMessage(user));
   }
 }

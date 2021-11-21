@@ -18,19 +18,11 @@ public class Money {
     return this.amount.compareTo(money.amount) >= 0;
   }
 
-  public boolean isGreaterThan(Money money) {
-    return this.amount.compareTo(money.amount) >= 1;
-  }
-
   public static Money of(long value) throws NegativeMoneyAmount {
     if (value < 0) {
       throw new NegativeMoneyAmount(value);
     }
     return new Money(BigInteger.valueOf(value));
-  }
-
-  public static Money add(Money a, Money b) {
-    return new Money(a.amount.add(b.amount));
   }
 
   public static Money subtract(Money a, Money b) {

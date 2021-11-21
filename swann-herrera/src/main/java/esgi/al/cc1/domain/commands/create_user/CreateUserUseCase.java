@@ -1,5 +1,7 @@
 package esgi.al.cc1.domain.commands.create_user;
 
+import esgi.al.cc1.domain.CreateUserEvent;
+
 public interface CreateUserUseCase {
-  boolean createUser(CreateUserCommand command);
+  CreateUserEvent createUser(CreateUserCommand command);
 }

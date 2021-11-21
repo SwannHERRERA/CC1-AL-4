@@ -20,11 +20,12 @@ public class UserService implements CreateUserUseCase {
   }
 
   @Override
-  public boolean createUser(CreateUserCommand command) throws IllegalArgumentException {
+  public CreateUserEvent createUser(CreateUserCommand command) throws IllegalArgumentException {
     var account = Account.of(command.startBalance, paymentBus);
     var user = User.of(UUID.randomUUID(), command.firstName, command.lastName, command.email, command.age, account);
     userRepository.add(user);
-    enrollmentBus.notifyListeners(CreateUserEvent.withCommandAndUser(command, user));
-    return true;
+    var event = CreateUserEvent.withCommandAndUser(command, user);
+    enrollmentBus.notifyListeners(event);
+    return event;
   }
 }
