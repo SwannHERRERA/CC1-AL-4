@@ -25,6 +25,7 @@ class UserTest {
     assertEquals(lastName, user.getLastName());
     assertEquals(email, user.getEmail());
     assertEquals(age, user.getAge());
+    assertEquals(UserStatus.CURRENTLY_AUDITED, user.getStatus());
   }
 
   @Test
@@ -100,5 +101,21 @@ class UserTest {
     User user = User.of(uuid, firstName, lastName, email, age, account, UserStatus.CURRENTLY_AUDITED);
     UserValidatorEngine engine = UserValidatorEngine.getInstance();
     assertNull(engine.getErrorMessage(user));
+  }
+
+  @Test
+  void test_rejection_user() {
+    User user = User.of(uuid, firstName, lastName, email, age, account, UserStatus.CURRENTLY_AUDITED);
+    assertEquals(UserStatus.CURRENTLY_AUDITED, user.getStatus());
+    user.reject();
+    assertEquals(UserStatus.REJECTED, user.getStatus());
+  }
+
+  @Test
+  void test_validation_user() {
+    User user = User.of(uuid, firstName, lastName, email, age, account, UserStatus.CURRENTLY_AUDITED);
+    assertEquals(UserStatus.CURRENTLY_AUDITED, user.getStatus());
+    user.validate();
+    assertEquals(UserStatus.VERIFIED, user.getStatus());
   }
 }

@@ -54,12 +54,25 @@ class UserServiceTest {
   }
 
   @Test
-  void test_user_creation_call_enrollement_listener() {
+  void test_user_creation_call_enrollement_listener_but_user_doent_have_enought_money() {
     Logger logger = new NullLogger();
     Listener<CreateUserEvent> listener = Mockito
         .spy(new EnrollmentListener(Account.of(Money.ZERO, paymentBus), logger));
     enrollmentBus.registerListener(listener);
     CreateUserEvent event = userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
     verify(listener, times(1)).accept(event);
+    assertEquals(UserStatus.REJECTED, event.getUser().getStatus());
+  }
+
+  @Test
+  void test_user_creation_call_enrollement_listener() {
+    Logger logger = new NullLogger();
+    Listener<CreateUserEvent> listener = Mockito
+        .spy(new EnrollmentListener(Account.of(Money.ZERO, paymentBus), logger));
+    enrollmentBus.registerListener(listener);
+    CreateUserEvent event = userService
+        .createUser(new CreateUserCommand(firstName, lastName, email, age, Money.of(500)));
+    verify(listener, times(1)).accept(event);
+    assertEquals(UserStatus.VERIFIED, event.getUser().getStatus());
   }
 }
