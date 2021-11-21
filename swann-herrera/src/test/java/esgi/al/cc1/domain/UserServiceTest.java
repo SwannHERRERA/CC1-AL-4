@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import esgi.al.cc1.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
 import esgi.al.cc1.infrastructure.MemoryUserRepository;
 
 class UserServiceTest {

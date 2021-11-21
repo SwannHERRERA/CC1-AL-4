@@ -1,10 +1,14 @@
 package esgi.al.cc1.domain;
 
 public class PaymentListener implements Listener<PaymentEvent> {
+  private final Logger logger;
+
+  public PaymentListener(Logger logger) {
+    this.logger = logger;
+  }
 
   @Override
   public void accept(PaymentEvent t) {
-    // TODO Auto-generated method stub
-    System.out.println("END User Creation successful with payment");
+    logger.log(t.toString());
   }
 }

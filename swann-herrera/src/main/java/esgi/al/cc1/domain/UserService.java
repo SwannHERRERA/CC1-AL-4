@@ -2,8 +2,8 @@ package esgi.al.cc1.domain;
 
 import java.util.UUID;
 
-import esgi.al.cc1.commands.create_user.CreateUserCommand;
-import esgi.al.cc1.commands.create_user.CreateUserUseCase;
+import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.domain.commands.create_user.CreateUserUseCase;
 import esgi.al.cc1.kernel.Service;
 
 @Service
