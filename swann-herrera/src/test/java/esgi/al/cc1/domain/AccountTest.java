@@ -14,6 +14,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
 import esgi.al.cc1.domain.exception.NegativeMoneyAmount;
+import esgi.al.cc1.infrastructure.NullLogger;
 
 public class AccountTest {
   private final EventBus<PaymentEvent> bus = new EventBus<>();
@@ -57,7 +58,7 @@ public class AccountTest {
     assertTrue(sender.sendMoney(moneySend, reciver));
     assertEquals(moneySend.getAmount(), reciver.getBalance().getAmount());
     assertEquals(Money.subtract(money, moneySend).getAmount(), sender.getBalance().getAmount());
-    // assert sender money have decrese
+    assertEquals(Money.of(180).toString(), sender.getBalance().toString());
   }
 
   @Test
@@ -77,7 +78,7 @@ public class AccountTest {
     var moneySend = Money.of(20);
     var sender = Account.of(money, bus);
     var reciver = Account.of(Money.ZERO, bus);
-    var listener = Mockito.spy(new PaymentListener());
+    var listener = Mockito.spy(new PaymentListener(new NullLogger()));
     bus.registerListener(listener);
     assertTrue(sender.sendMoney(moneySend, reciver));
     verify(listener, times(1)).accept(paymentCaptor.capture());

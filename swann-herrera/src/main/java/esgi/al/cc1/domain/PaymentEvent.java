@@ -53,4 +53,10 @@ public class PaymentEvent implements Event {
   public Money getAmount() {
     return amount;
   }
+
+  @Override
+  public String toString() {
+    return "PaymentEvent [amount=" + amount + ", destination=" + destination + ", id=" + id + ", occurrenceDate="
+        + occurrenceDate + ", source=" + source + ", status=" + status + "]";
+  }
 }

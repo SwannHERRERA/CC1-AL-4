@@ -1,18 +1,23 @@
 package esgi.al.cc1.domain;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import esgi.al.cc1.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
 import esgi.al.cc1.infrastructure.MemoryUserRepository;
+import esgi.al.cc1.infrastructure.NullLogger;
 
 class UserServiceTest {
   private final UserRepository userRepository = new MemoryUserRepository();
-  private final EventBus<CreateUserEvent> eventBus = new EventBus<>();
-  private final EventBus<PaymentEvent> enrollmentBus = new EventBus<>();
+  private final EventBus<PaymentEvent> paymentBus = new EventBus<>();
+  private final EventBus<CreateUserEvent> enrollmentBus = new EventBus<>();
   private final String firstName = "Swann";
   private final String lastName = "HERRERA";
   private final String email = "swann@devloup.dev";
@@ -20,13 +25,13 @@ class UserServiceTest {
   private final UserService userService;
 
   UserServiceTest() {
-    userService = new UserService(userRepository, eventBus, enrollmentBus);
+    userService = new UserService(userRepository, enrollmentBus, paymentBus);
   }
 
   @Test
   void test_create_user_with_valid_data_is_a_success() {
-    boolean response = userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
-    assertTrue(response);
+    CreateUserEvent event = userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+    assertEquals(email, event.getUser().getEmail());
   }
 
   @Test
@@ -45,6 +50,15 @@ class UserServiceTest {
     Exception exception = assertThrows(IllegalArgumentException.class, () -> userService.createUser(command2));
     String message = exception.getMessage();
     assertTrue(message.contains("Email already exists"));
+  }
 
+  @Test
+  void test_user_creation_call_enrollement_listener() {
+    Logger logger = new NullLogger();
+    Listener<CreateUserEvent> listener = Mockito
+        .spy(new EnrollmentListener(Account.of(Money.ZERO, paymentBus), logger));
+    enrollmentBus.registerListener(listener);
+    CreateUserEvent event = userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+    verify(listener, times(1)).accept(event);
   }
 }

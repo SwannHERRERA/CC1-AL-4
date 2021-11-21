@@ -21,5 +21,18 @@ comportant une fonction d’ajout d’un membre.
 
 ![sujet](assets/sujet.png)
 
+- il faut cd swannherrera
+- faire le logger tout ça
+- les choix techniques réalisé
+  - Passer par plusieurs event Bus
+  - utiliser un système de command
+  - primitive obcession
+  - le système d'account
+- il manque un système de gestion des dependence
+- phylosophie YAGNI
+- mon account est différencié de la persistance
+- je me suis beaucoup inspiré pour la logger factory
+
+
 Test command
 `mvn clean jacoco:prepare-agent install jacoco:report`

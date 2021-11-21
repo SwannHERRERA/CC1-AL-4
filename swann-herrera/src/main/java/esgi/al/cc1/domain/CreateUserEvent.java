@@ -3,7 +3,7 @@ package esgi.al.cc1.domain;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import esgi.al.cc1.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
 
 public class CreateUserEvent implements Event {
   private final UUID id;
