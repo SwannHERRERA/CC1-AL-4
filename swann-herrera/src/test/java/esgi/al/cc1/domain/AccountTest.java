@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 
 import esgi.al.cc1.domain.exception.NegativeMoneyAmount;
 import esgi.al.cc1.infrastructure.NullLogger;
+import esgi.al.cc1.infrastructure.PaymentListener;
 
 public class AccountTest {
   private final EventBus<PaymentEvent> bus = new EventBus<>();

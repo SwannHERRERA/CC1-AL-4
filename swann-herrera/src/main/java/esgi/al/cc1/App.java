@@ -2,15 +2,15 @@ package esgi.al.cc1;
 
 import esgi.al.cc1.domain.UserService;
 import esgi.al.cc1.domain.commands.create_user.CreateUserCommand;
+import esgi.al.cc1.infrastructure.EnrollmentListener;
 import esgi.al.cc1.infrastructure.MemoryUserRepository;
+import esgi.al.cc1.infrastructure.PaymentListener;
 import esgi.al.cc1.domain.EventBus;
 import esgi.al.cc1.domain.LoggerFactory;
 import esgi.al.cc1.domain.Money;
 import esgi.al.cc1.domain.PaymentEvent;
-import esgi.al.cc1.domain.PaymentListener;
 import esgi.al.cc1.domain.Account;
 import esgi.al.cc1.domain.CreateUserEvent;
-import esgi.al.cc1.domain.EnrollmentListener;
 
 /**
  * Hello world!
