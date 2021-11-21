@@ -65,7 +65,4 @@ No TDD yet only structures
 
 
 [Unreleased]: 
-<!--
-TODO
-Lien github pour comparer tous les commit sur ce fichier depuis le tag
- -->
+https://github.com/SwannHERRERA/CC1-AL-4/commits/develop/changelog.md
