@@ -54,7 +54,7 @@ class UserServiceTest {
   }
 
   @Test
-  void test_user_creation_call_enrollement_listener_but_user_doent_have_enought_money() {
+  void test_user_creation_call_enrollement_listener_but_user_doesnt_have_enough_money() {
     Logger logger = new NullLogger();
     Listener<CreateUserEvent> listener = Mockito
         .spy(new EnrollmentListener(Account.of(Money.ZERO, paymentBus), logger));
