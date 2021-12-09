@@ -1,11 +1,11 @@
-package esgi.al.cc2.infrastructure;
+package dev.devloup.application.port.out;
 
-import esgi.al.cc2.Config;
-import esgi.al.cc2.domain.Account;
-import esgi.al.cc2.domain.CreateUserEvent;
-import esgi.al.cc2.domain.Listener;
-import esgi.al.cc2.domain.Logger;
-import esgi.al.cc2.domain.Money;
+import dev.devloup.application.port.in.CreateUserEvent;
+import dev.devloup.core.Config;
+import dev.devloup.core.Logger;
+import dev.devloup.domain.Account;
+import dev.devloup.domain.Listener;
+import dev.devloup.domain.Money;
 
 public final class EnrollmentListener implements Listener<CreateUserEvent> {
   private final Account reciver;
@@ -18,8 +18,8 @@ public final class EnrollmentListener implements Listener<CreateUserEvent> {
 
   @Override
   public void accept(CreateUserEvent event) {
-    var userAccount = event.getUser().getAccount();
     logger.log("user added with command " + event.getCommand());
+    var userAccount = event.getUser().getAccount();
     if (userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), reciver)) {
       event.getUser().validate();
     } else {
