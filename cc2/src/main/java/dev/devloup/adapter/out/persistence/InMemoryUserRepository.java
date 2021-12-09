@@ -1,18 +1,21 @@
 package dev.devloup.adapter.out.persistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
+import javax.enterprise.context.ApplicationScoped;
 
 import dev.devloup.domain.User;
+import dev.devloup.domain.UserId;
 import dev.devloup.domain.UserRepository;
-
+@ApplicationScoped
 public class InMemoryUserRepository implements UserRepository {
   List<User> userList = new ArrayList<>();
 
   @Override
-  public Optional<User> findById(UUID id) {
+  public Optional<User> findById(UserId id) {
     return userList.stream().filter(u -> u.getId().equals(id)).findFirst();
   }
 
@@ -27,5 +30,10 @@ public class InMemoryUserRepository implements UserRepository {
       throw new IllegalArgumentException("Email already exists");
     }
     userList.add(user);
+  }
+
+  @Override
+  public List<User> listAll() {
+    return Collections.unmodifiableList(userList);
   }
 }

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -14,12 +15,12 @@ import dev.devloup.DummyCreateUserEventListener;
 import dev.devloup.adapter.out.persistence.InMemoryUserRepository;
 import dev.devloup.application.port.in.CreateUserCommand;
 import dev.devloup.application.port.in.CreateUserEvent;
+import dev.devloup.application.port.in.ListAllUserQuery;
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.domain.EventBus;
 import dev.devloup.domain.Listener;
 import dev.devloup.domain.Money;
 import dev.devloup.domain.UserRepository;
-import dev.devloup.domain.UserStatus;
 
 class UserServiceTest {
   private final UserRepository userRepository = new InMemoryUserRepository();
@@ -76,5 +77,31 @@ class UserServiceTest {
     CreateUserEvent event = userService
         .createUser(new CreateUserCommand(firstName, lastName, email, age, Money.of(500)));
     verify(listener, times(1)).accept(event);
+  }
+
+  @Test
+  void test_list_all_user_when_list_is_empty() {
+    var users = userService.listAll(new DummyListAllUserQuery());
+    Assertions.assertThat(users).isEmpty();
+  }
+
+  @Test
+  void test_list_all_user_when_list_has_one_user() {
+    userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+    var users = userService.listAll(new DummyListAllUserQuery());
+    Assertions.assertThat(users).isNotEmpty();
+    Assertions.assertThat(users).size().isEqualTo(1);
+  }
+
+  @Test
+  void test_list_all_user_when_list_has_many_user() {
+    var email2 = "toto@gmail.com";
+    var email3 = "toto@ukulele.com";
+    userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+    userService.createUser(new CreateUserCommand(firstName, lastName, email2, age, Money.ZERO));
+    userService.createUser(new CreateUserCommand(firstName, lastName, email3, age, Money.ZERO));
+    var users = userService.listAll(new DummyListAllUserQuery());
+    Assertions.assertThat(users).isNotEmpty();
+    Assertions.assertThat(users).size().isEqualTo(3);
   }
 }

@@ -17,7 +17,7 @@ public class FileLogger implements Logger {
     public void log(String message) {
         try (FileWriter fileWriter = new FileWriter(logFile.toFile(), true)) {
             fileWriter.append(message);
-            fileWriter.append("\n");
+            fileWriter.append(System.lineSeparator());
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }

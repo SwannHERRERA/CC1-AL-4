@@ -1,12 +1,10 @@
 package dev.devloup.domain;
 
-import java.util.UUID;
-
 import dev.devloup.core.Entity;
 
 @Entity
 public class User {
-  private final UUID id;
+  private final UserId id;
   private final String firstName;
   private final String lastName;
   private final String email;
@@ -18,7 +16,7 @@ public class User {
     this.status = status;
   }
 
-  private User(UUID id, String firstName, String lastName, String email, int age, Account account, UserStatus status) {
+  private User(UserId id, String firstName, String lastName, String email, int age, Account account, UserStatus status) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -28,7 +26,7 @@ public class User {
     this.status = status;
   }
 
-  public static User of(UUID id, String firstName, String lastName, String email, int age, Account account,
+  public static User of(UserId id, String firstName, String lastName, String email, int age, Account account,
       UserStatus status) throws IllegalArgumentException {
     var user = new User(id, firstName, lastName, email, age, account, status);
     var validator = UserValidatorEngine.getInstance();
@@ -46,7 +44,7 @@ public class User {
     this.status = UserStatus.REJECTED;
   }
 
-  public UUID getId() {
+  public UserId getId() {
     return id;
   }
 

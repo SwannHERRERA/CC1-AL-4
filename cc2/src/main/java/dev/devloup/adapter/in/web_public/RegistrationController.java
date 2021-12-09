@@ -1,4 +1,4 @@
-package dev.devloup.adapter.in.web;
+package dev.devloup.adapter.in.web_public;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
