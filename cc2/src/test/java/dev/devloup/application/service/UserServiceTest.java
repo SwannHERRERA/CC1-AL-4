@@ -16,23 +16,26 @@ import dev.devloup.adapter.out.persistence.InMemoryUserRepository;
 import dev.devloup.application.port.in.CreateUserCommand;
 import dev.devloup.application.port.in.CreateUserEvent;
 import dev.devloup.application.port.in.PaymentEvent;
+import dev.devloup.application.port.out.UserMapper;
+import dev.devloup.core.ApplicationEvent;
+import dev.devloup.core.ApplicationEventListener;
 import dev.devloup.core.EventBus;
-import dev.devloup.domain.Listener;
+import dev.devloup.core.SimpleEventBus;
 import dev.devloup.domain.Money;
 import dev.devloup.domain.UserRepository;
 
 class UserServiceTest {
   private final UserRepository userRepository = new InMemoryUserRepository();
-  private final EventBus<PaymentEvent> paymentBus = new EventBus<>();
-  private final EventBus<CreateUserEvent> enrollmentBus = new EventBus<>();
+  private final EventBus<ApplicationEvent> eventBus = new SimpleEventBus<>();
   private final String firstName = "Swann";
   private final String lastName = "HERRERA";
   private final String email = "swann@devloup.dev";
+  private final UserMapper userMapper = new UserMapper();
   private final int age = 20;
   private final UserService userService;
 
   UserServiceTest() {
-    userService = new UserService(userRepository, enrollmentBus, paymentBus);
+    userService = new UserService(userRepository, eventBus, userMapper);
   }
 
   @Test
@@ -60,22 +63,20 @@ class UserServiceTest {
   }
 
   @Test
-  void test_user_creation_call_enrollement_listener_but_user_doesnt_have_enough_money() {
-    Listener<CreateUserEvent> listener = Mockito
-        .spy(new DummyCreateUserEventListener());
-    enrollmentBus.registerListener(listener);
+  void test_user_creation_send_event() {
+    ApplicationEventListener<CreateUserEvent> listener = Mockito.spy(new DummyCreateUserEventListener());
+    eventBus.subscribe(CreateUserEvent.class, listener);
     CreateUserEvent event = userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
-    verify(listener, times(1)).accept(event);
+    verify(listener, times(1)).listenTo(event);
   }
 
   @Test
   void test_user_creation_call_enrollement_listener() {
-    Listener<CreateUserEvent> listener = Mockito
-        .spy(new DummyCreateUserEventListener());
-    enrollmentBus.registerListener(listener);
+    ApplicationEventListener<CreateUserEvent> listener = Mockito.spy(new DummyCreateUserEventListener());
+    eventBus.subscribe(CreateUserEvent.class, listener);
     CreateUserEvent event = userService
         .createUser(new CreateUserCommand(firstName, lastName, email, age, Money.of(500)));
-    verify(listener, times(1)).accept(event);
+    verify(listener, times(1)).listenTo(event);
   }
 
   @Test

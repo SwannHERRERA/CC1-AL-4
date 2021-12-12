@@ -3,9 +3,9 @@ package dev.devloup;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import dev.devloup.domain.Event;
+import dev.devloup.core.ApplicationEvent;
 
-public class DummyEvent implements Event {
+public class DummyEvent implements ApplicationEvent {
 
   @Override
   public UUID getId() {

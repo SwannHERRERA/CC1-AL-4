@@ -13,15 +13,18 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
+import dev.devloup.DummyEvent;
 import dev.devloup.DummyPaymentListener;
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.application.port.out.exception.NegativeMoneyAmount;
+import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
+import dev.devloup.core.SimpleEventBus;
 
 public class AccountTest {
-  private final EventBus<PaymentEvent> bus = new EventBus<>();
+  private final EventBus<ApplicationEvent> bus = new SimpleEventBus<>();
 
-  private ArgumentCaptor<PaymentEvent> paymentCaptor = ArgumentCaptor.forClass(PaymentEvent.class);
+  private ArgumentCaptor<DummyEvent> paymentCaptor = ArgumentCaptor.forClass(DummyEvent.class);
 
   @Test
   void test_creation() {
@@ -81,8 +84,8 @@ public class AccountTest {
     var sender = Account.of(money, bus);
     var reciver = Account.of(Money.ZERO, bus);
     var listener = Mockito.spy(new DummyPaymentListener());
-    bus.registerListener(listener);
+    bus.subscribe(DummyPaymentListener.class, listener);
     assertTrue(sender.sendMoney(moneySend, reciver));
-    verify(listener, times(1)).accept(paymentCaptor.capture());
+    verify(listener, times(1)).listenTo(paymentCaptor.capture());
   }
 }

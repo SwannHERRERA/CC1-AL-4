@@ -1,11 +1,10 @@
 package dev.devloup;
 
-import dev.devloup.application.port.in.PaymentEvent;
-import dev.devloup.domain.Listener;
+import dev.devloup.core.ApplicationEventListener;
 
-public class DummyPaymentListener implements Listener<PaymentEvent> {
+public class DummyPaymentListener implements ApplicationEventListener<DummyEvent> {
   @Override
-  public void accept(PaymentEvent e) {
-    // DO nothing
+  public void listenTo(DummyEvent event) {
+    // Do nothing
   }
 }
