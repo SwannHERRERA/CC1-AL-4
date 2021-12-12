@@ -9,9 +9,9 @@ import static io.restassured.RestAssured.given;
 @QuarkusTest
 public class RegistrationControllerTest {
   @Test
-    public void testPost() {
-        given()
-          .when().post("/register")
-          .then().statusCode(200);
-    }
+  public void testPost() {
+    given()
+        .when().post("/register")
+        .then().statusCode(200);
+  }
 }

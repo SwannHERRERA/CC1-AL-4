@@ -22,7 +22,7 @@ public class UserController {
   public UserController(ListUserUseCase listUserUseCase) {
     this.listUserUseCase = listUserUseCase;
   }
-  
+
   @GET
   public List<UserDTO> getAllUsers(ListAllUserQuery query) {
     return listUserUseCase.listAll(query);

@@ -15,7 +15,6 @@ import dev.devloup.DummyCreateUserEventListener;
 import dev.devloup.adapter.out.persistence.InMemoryUserRepository;
 import dev.devloup.application.port.in.CreateUserCommand;
 import dev.devloup.application.port.in.CreateUserEvent;
-import dev.devloup.application.port.in.ListAllUserQuery;
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.domain.EventBus;
 import dev.devloup.domain.Listener;
@@ -89,8 +88,7 @@ class UserServiceTest {
   void test_list_all_user_when_list_has_one_user() {
     userService.createUser(new CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
     var users = userService.listAll(new DummyListAllUserQuery());
-    Assertions.assertThat(users).isNotEmpty();
-    Assertions.assertThat(users).size().isEqualTo(1);
+    Assertions.assertThat(users).isNotEmpty().size().isEqualTo(1);
   }
 
   @Test
@@ -101,7 +99,6 @@ class UserServiceTest {
     userService.createUser(new CreateUserCommand(firstName, lastName, email2, age, Money.ZERO));
     userService.createUser(new CreateUserCommand(firstName, lastName, email3, age, Money.ZERO));
     var users = userService.listAll(new DummyListAllUserQuery());
-    Assertions.assertThat(users).isNotEmpty();
-    Assertions.assertThat(users).size().isEqualTo(3);
+    Assertions.assertThat(users).isNotEmpty().size().isEqualTo(3);
   }
 }
