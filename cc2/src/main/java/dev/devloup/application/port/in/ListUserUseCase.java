@@ -4,5 +4,6 @@ import java.util.List;
 
 public interface ListUserUseCase {
   public List<UserDTO> listAll(ListAllUserQuery query);
-  public UserDTO get(GetUserQuery id);
+
+  public UserDTO get(GetUserByIdQuery id);
 }

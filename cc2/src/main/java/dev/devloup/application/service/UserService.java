@@ -5,14 +5,14 @@ import java.util.List;
 import dev.devloup.application.port.in.CreateUserCommand;
 import dev.devloup.application.port.in.CreateUserEvent;
 import dev.devloup.application.port.in.CreateUserUseCase;
-import dev.devloup.application.port.in.GetUserQuery;
+import dev.devloup.application.port.in.GetUserByIdQuery;
 import dev.devloup.application.port.in.ListAllUserQuery;
 import dev.devloup.application.port.in.ListUserUseCase;
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.application.port.in.UserDTO;
 import dev.devloup.application.port.out.UserMapper;
+import dev.devloup.core.EventBus;
 import dev.devloup.domain.Account;
-import dev.devloup.domain.EventBus;
 import dev.devloup.domain.User;
 import dev.devloup.domain.UserId;
 import dev.devloup.domain.UserRepository;
@@ -49,7 +49,7 @@ public class UserService implements CreateUserUseCase, ListUserUseCase {
   }
 
   @Override
-  public UserDTO get(GetUserQuery query) {
+  public UserDTO get(GetUserByIdQuery query) {
     var user = userRepository.findById(query.getId());
     if (user.isEmpty()) {
       return null;

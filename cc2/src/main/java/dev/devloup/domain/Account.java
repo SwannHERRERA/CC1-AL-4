@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.core.Entity;
+import dev.devloup.core.EventBus;
 
 @Entity
 public class Account {

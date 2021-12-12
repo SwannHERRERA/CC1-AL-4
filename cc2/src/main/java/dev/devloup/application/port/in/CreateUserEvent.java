@@ -3,10 +3,10 @@ package dev.devloup.application.port.in;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
-import dev.devloup.domain.Event;
+import dev.devloup.core.ApplicationEvent;
 import dev.devloup.domain.User;
 
-public class CreateUserEvent implements Event {
+public class CreateUserEvent implements ApplicationEvent {
   private final UUID id;
   private final CreateUserCommand command;
   private final User user;
@@ -42,4 +42,3 @@ public class CreateUserEvent implements Event {
   }
 
 }
-

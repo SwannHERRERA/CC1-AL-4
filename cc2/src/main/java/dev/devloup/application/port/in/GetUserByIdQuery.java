@@ -2,11 +2,13 @@ package dev.devloup.application.port.in;
 
 import dev.devloup.domain.UserId;
 
-public class GetUserQuery {
+public class GetUserByIdQuery {
   private UserId id;
-  public GetUserQuery(UserId id) {
+
+  public GetUserByIdQuery(UserId id) {
     this.id = id;
   }
+
   public UserId getId() {
     return id;
   }

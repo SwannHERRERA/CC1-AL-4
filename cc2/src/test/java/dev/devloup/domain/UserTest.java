@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 import dev.devloup.application.port.in.PaymentEvent;
+import dev.devloup.core.EventBus;
 
 class UserTest {
   private final UserId id = UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d"));

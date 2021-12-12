@@ -16,7 +16,7 @@ import dev.devloup.adapter.out.persistence.InMemoryUserRepository;
 import dev.devloup.application.port.in.CreateUserCommand;
 import dev.devloup.application.port.in.CreateUserEvent;
 import dev.devloup.application.port.in.PaymentEvent;
-import dev.devloup.domain.EventBus;
+import dev.devloup.core.EventBus;
 import dev.devloup.domain.Listener;
 import dev.devloup.domain.Money;
 import dev.devloup.domain.UserRepository;

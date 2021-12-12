@@ -8,6 +8,7 @@ import org.mockito.Mockito;
 
 import dev.devloup.DummyEvent;
 import dev.devloup.DummyEventListener;
+import dev.devloup.core.EventBus;
 
 public class EventBusTest {
   private final Listener<DummyEvent> listener1;
@@ -70,4 +71,3 @@ public class EventBusTest {
     verify(listener2, times(2)).accept(event);
   }
 }
-

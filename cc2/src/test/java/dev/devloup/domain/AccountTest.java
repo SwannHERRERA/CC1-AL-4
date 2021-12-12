@@ -16,6 +16,7 @@ import org.mockito.Mockito;
 import dev.devloup.DummyPaymentListener;
 import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.application.port.out.exception.NegativeMoneyAmount;
+import dev.devloup.core.EventBus;
 
 public class AccountTest {
   private final EventBus<PaymentEvent> bus = new EventBus<>();
@@ -85,4 +86,3 @@ public class AccountTest {
     verify(listener, times(1)).accept(paymentCaptor.capture());
   }
 }
-

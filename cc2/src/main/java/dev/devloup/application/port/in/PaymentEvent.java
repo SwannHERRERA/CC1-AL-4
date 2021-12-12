@@ -3,12 +3,12 @@ package dev.devloup.application.port.in;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+import dev.devloup.core.ApplicationEvent;
 import dev.devloup.domain.Account;
-import dev.devloup.domain.Event;
 import dev.devloup.domain.Money;
 import dev.devloup.domain.TransactionStatus;
 
-public class PaymentEvent implements Event {
+public class PaymentEvent implements ApplicationEvent {
   private final UUID id;
   private final ZonedDateTime occurrenceDate;
   private final Account source;
@@ -65,4 +65,3 @@ public class PaymentEvent implements Event {
         + occurrenceDate + ", source=" + source + ", status=" + status + "]";
   }
 }
-

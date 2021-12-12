@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import dev.devloup.application.port.in.GetUserQuery;
+import dev.devloup.application.port.in.GetUserByIdQuery;
 import dev.devloup.application.port.in.ListAllUserQuery;
 import dev.devloup.application.port.in.ListUserUseCase;
 import dev.devloup.application.port.in.UserDTO;
@@ -29,7 +29,7 @@ public class UserController {
   }
 
   @GET
-  public UserDTO getUser(GetUserQuery query) {
+  public UserDTO getUser(GetUserByIdQuery query) {
     return listUserUseCase.get(query);
   }
 }
