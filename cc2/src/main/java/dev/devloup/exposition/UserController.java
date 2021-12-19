@@ -11,7 +11,7 @@ import javax.ws.rs.core.MediaType;
 import dev.devloup.use_case.register.exposition.GetUserByIdQuery;
 import dev.devloup.use_case.register.exposition.ListAllUserQuery;
 import dev.devloup.use_case.register.exposition.ListUserUseCase;
-import dev.devloup.use_case.register.exposition.UserDTO;
+import dev.devloup.use_case.register.exposition.UserResponse;
 
 @Path("/admin/register")
 @Produces(MediaType.APPLICATION_JSON)
@@ -24,12 +24,12 @@ public class UserController {
   }
 
   @GET
-  public List<UserDTO> getAllUsers(ListAllUserQuery query) {
+  public List<UserResponse> getAllUsers(ListAllUserQuery query) {
     return listUserUseCase.listAll(query);
   }
 
   @GET
-  public UserDTO getUser(GetUserByIdQuery query) {
+  public UserResponse getUser(GetUserByIdQuery query) {
     return listUserUseCase.get(query);
   }
 }

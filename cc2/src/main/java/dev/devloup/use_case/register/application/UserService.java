@@ -16,7 +16,7 @@ import dev.devloup.use_case.register.exposition.CreateUserUseCase;
 import dev.devloup.use_case.register.exposition.GetUserByIdQuery;
 import dev.devloup.use_case.register.exposition.ListAllUserQuery;
 import dev.devloup.use_case.register.exposition.ListUserUseCase;
-import dev.devloup.use_case.register.exposition.UserDTO;
+import dev.devloup.use_case.register.exposition.UserResponse;
 
 public class UserService implements CreateUserUseCase, ListUserUseCase {
   private final UserRepository userRepository;
@@ -41,16 +41,16 @@ public class UserService implements CreateUserUseCase, ListUserUseCase {
   }
 
   @Override
-  public List<UserDTO> listAll(ListAllUserQuery query) {
-    return userMapper.mapUsersToUserDTOList(userRepository.listAll());
+  public List<UserResponse> listAll(ListAllUserQuery query) {
+    return userMapper.mapUsersToUserResponseList(userRepository.listAll());
   }
 
   @Override
-  public UserDTO get(GetUserByIdQuery query) {
+  public UserResponse get(GetUserByIdQuery query) {
     var user = userRepository.findById(query.getId());
     if (user.isEmpty()) {
       return null;
     }
-    return userMapper.mapUserToUserDTO(user.get());
+    return userMapper.mapUserToUserResponse(user.get());
   }
 }

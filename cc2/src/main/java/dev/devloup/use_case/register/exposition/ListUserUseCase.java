@@ -3,7 +3,7 @@ package dev.devloup.use_case.register.exposition;
 import java.util.List;
 
 public interface ListUserUseCase {
-  public List<UserDTO> listAll(ListAllUserQuery query);
+  public List<UserResponse> listAll(ListAllUserQuery query);
 
-  public UserDTO get(GetUserByIdQuery id);
+  public UserResponse get(GetUserByIdQuery id);
 }

@@ -22,4 +22,8 @@ public class UserId {
   public UUID getId() {
     return id;
   }
+
+  public String toString() {
+    return id.toString();
+  }
 }

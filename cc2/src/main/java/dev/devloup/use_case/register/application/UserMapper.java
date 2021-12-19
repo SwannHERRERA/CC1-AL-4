@@ -4,17 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.devloup.shared.domain.User;
-import dev.devloup.use_case.register.exposition.UserDTO;
+import dev.devloup.use_case.register.exposition.UserResponse;
 
 public class UserMapper {
-  public UserDTO mapUserToUserDTO(User user) {
-    return UserDTO.of(user);
+  public UserResponse mapUserToUserResponse(User user) {
+    return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAge(),
+        user.getStatus());
   }
 
-  public List<UserDTO> mapUsersToUserDTOList(List<User> users) {
-    var list = new ArrayList<UserDTO>();
+  public List<UserResponse> mapUsersToUserResponseList(List<User> users) {
+    var list = new ArrayList<UserResponse>();
     for (User user : users) {
-      list.add(UserDTO.of(user));
+      list.add(new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAge(),
+          user.getStatus()));
     }
     return list;
   }
