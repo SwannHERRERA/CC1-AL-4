@@ -1,4 +1,4 @@
-package dev.devloup.adapter.out.persistence;
+package dev.devloup.shared.infrastructure;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,9 +7,10 @@ import java.util.Optional;
 
 import javax.enterprise.context.ApplicationScoped;
 
-import dev.devloup.domain.User;
-import dev.devloup.domain.UserId;
-import dev.devloup.domain.UserRepository;
+import dev.devloup.shared.domain.User;
+import dev.devloup.shared.domain.UserId;
+import dev.devloup.use_case.register.domain.UserRepository;
+
 @ApplicationScoped
 public class InMemoryUserRepository implements UserRepository {
   List<User> userList = new ArrayList<>();

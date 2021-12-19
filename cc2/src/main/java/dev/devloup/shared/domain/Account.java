@@ -1,12 +1,12 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import java.util.Objects;
 import java.util.UUID;
 
-import dev.devloup.application.port.in.PaymentEvent;
 import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.Entity;
 import dev.devloup.core.EventBus;
+import dev.devloup.use_case.register.exposition.PaymentEvent;
 
 @Entity
 public class Account {

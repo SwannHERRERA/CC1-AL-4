@@ -1,12 +1,12 @@
-package dev.devloup.application.port.in;
+package dev.devloup.use_case.register.exposition;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import dev.devloup.core.ApplicationEvent;
-import dev.devloup.domain.Account;
-import dev.devloup.domain.Money;
-import dev.devloup.domain.TransactionStatus;
+import dev.devloup.shared.domain.Account;
+import dev.devloup.shared.domain.Money;
+import dev.devloup.shared.domain.TransactionStatus;
 
 public class PaymentEvent implements ApplicationEvent {
   private final UUID id;

@@ -1,4 +1,4 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import dev.devloup.core.Entity;
 
@@ -16,7 +16,8 @@ public class User {
     this.status = status;
   }
 
-  private User(UserId id, String firstName, String lastName, String email, int age, Account account, UserStatus status) {
+  private User(UserId id, String firstName, String lastName, String email, int age, Account account,
+      UserStatus status) {
     this.id = id;
     this.firstName = firstName;
     this.lastName = lastName;
@@ -72,4 +73,3 @@ public class User {
     return status;
   }
 }
-

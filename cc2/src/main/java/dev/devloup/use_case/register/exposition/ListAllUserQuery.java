@@ -1,5 +1,5 @@
-package dev.devloup.application.port.in;
+package dev.devloup.use_case.register.exposition;
 
 public interface ListAllUserQuery {
-  
+
 }

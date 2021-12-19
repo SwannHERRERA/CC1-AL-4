@@ -1,9 +1,9 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import java.math.BigInteger;
 
-import dev.devloup.application.port.out.exception.NegativeMoneyAmount;
 import dev.devloup.core.Entity;
+import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
 
 @Entity
 public class Money {
@@ -41,7 +41,12 @@ public class Money {
     return amount;
   }
 
+  public long toPrimitive() {
+    return amount.longValue();
+  }
+
   public String toString() {
     return "Amount : " + amount;
   }
+
 }

@@ -1,10 +1,10 @@
-package dev.devloup.application.port.in;
+package dev.devloup.use_case.register.exposition;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import dev.devloup.core.ApplicationEvent;
-import dev.devloup.domain.User;
+import dev.devloup.shared.domain.User;
 
 public class CreateUserEvent implements ApplicationEvent {
   private final UUID id;

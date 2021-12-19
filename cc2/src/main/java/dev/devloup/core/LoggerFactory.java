@@ -1,11 +1,11 @@
-package dev.devloup.domain;
+package dev.devloup.core;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import dev.devloup.adapter.out.persistence.FileLogger;
 import dev.devloup.core.Logger;
+import dev.devloup.shared.infrastructure.FileLogger;
 
 public class LoggerFactory {
   private LoggerFactory() {

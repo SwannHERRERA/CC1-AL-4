@@ -1,22 +1,22 @@
-package dev.devloup.application.service;
+package dev.devloup.use_case.register.application;
 
 import java.util.List;
 
-import dev.devloup.application.port.in.CreateUserCommand;
-import dev.devloup.application.port.in.CreateUserEvent;
-import dev.devloup.application.port.in.CreateUserUseCase;
-import dev.devloup.application.port.in.GetUserByIdQuery;
-import dev.devloup.application.port.in.ListAllUserQuery;
-import dev.devloup.application.port.in.ListUserUseCase;
-import dev.devloup.application.port.in.UserDTO;
-import dev.devloup.application.port.out.UserMapper;
 import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
-import dev.devloup.domain.Account;
-import dev.devloup.domain.User;
-import dev.devloup.domain.UserId;
-import dev.devloup.domain.UserRepository;
-import dev.devloup.domain.UserStatus;
+import dev.devloup.shared.domain.Account;
+import dev.devloup.shared.domain.Money;
+import dev.devloup.shared.domain.User;
+import dev.devloup.shared.domain.UserId;
+import dev.devloup.shared.domain.UserStatus;
+import dev.devloup.use_case.register.domain.UserRepository;
+import dev.devloup.use_case.register.exposition.CreateUserCommand;
+import dev.devloup.use_case.register.exposition.CreateUserEvent;
+import dev.devloup.use_case.register.exposition.CreateUserUseCase;
+import dev.devloup.use_case.register.exposition.GetUserByIdQuery;
+import dev.devloup.use_case.register.exposition.ListAllUserQuery;
+import dev.devloup.use_case.register.exposition.ListUserUseCase;
+import dev.devloup.use_case.register.exposition.UserDTO;
 
 public class UserService implements CreateUserUseCase, ListUserUseCase {
   private final UserRepository userRepository;
@@ -31,7 +31,7 @@ public class UserService implements CreateUserUseCase, ListUserUseCase {
 
   @Override
   public CreateUserEvent createUser(CreateUserCommand command) throws IllegalArgumentException {
-    var account = Account.of(command.startBalance, eventBus);
+    var account = Account.of(Money.of(command.startBalance), eventBus);
     var user = User.of(UserId.generate(), command.firstName, command.lastName, command.email, command.age, account,
         UserStatus.CURRENTLY_AUDITED);
     userRepository.add(user);

@@ -1,11 +1,11 @@
-package dev.devloup.application.port.out;
+package dev.devloup.use_case.register.application;
 
-import dev.devloup.application.port.in.CreateUserEvent;
 import dev.devloup.core.ApplicationEventListener;
 import dev.devloup.core.Config;
 import dev.devloup.core.Logger;
-import dev.devloup.domain.Account;
-import dev.devloup.domain.Money;
+import dev.devloup.shared.domain.Account;
+import dev.devloup.shared.domain.Money;
+import dev.devloup.use_case.register.exposition.CreateUserEvent;
 
 public final class EnrollmentListener implements ApplicationEventListener<CreateUserEvent> {
   private final Account reciver;
@@ -17,7 +17,7 @@ public final class EnrollmentListener implements ApplicationEventListener<Create
   }
 
   @Override
-  public void listenTo(CreateUserEvent event) {
+  public void accept(CreateUserEvent event) {
     logger.log("user added with command " + event.getCommand());
     var userAccount = event.getUser().getAccount();
     if (userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), reciver)) {

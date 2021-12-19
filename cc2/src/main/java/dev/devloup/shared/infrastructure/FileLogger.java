@@ -1,4 +1,4 @@
-package dev.devloup.adapter.out.persistence;
+package dev.devloup.shared.infrastructure;
 
 import java.io.FileWriter;
 import java.io.IOException;

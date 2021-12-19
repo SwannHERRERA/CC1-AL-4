@@ -1,4 +1,4 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import java.util.Objects;
 import java.util.UUID;
@@ -14,6 +14,7 @@ public class UserId {
     var id = Objects.requireNonNull(eternalId);
     return new UserId(id);
   }
+
   public static UserId generate() {
     return new UserId(UUID.randomUUID());
   }

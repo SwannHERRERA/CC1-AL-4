@@ -1,6 +1,6 @@
-package dev.devloup.application.port.in;
+package dev.devloup.use_case.register.exposition;
 
-import dev.devloup.domain.UserId;
+import dev.devloup.shared.domain.UserId;
 
 public class GetUserByIdQuery {
   private UserId id;

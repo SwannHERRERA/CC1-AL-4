@@ -1,8 +1,8 @@
-package dev.devloup.application.port.in;
+package dev.devloup.use_case.register.exposition;
 
-import dev.devloup.domain.User;
-import dev.devloup.domain.UserId;
-import dev.devloup.domain.UserStatus;
+import dev.devloup.shared.domain.User;
+import dev.devloup.shared.domain.UserId;
+import dev.devloup.shared.domain.UserStatus;
 
 public class UserDTO {
   public final UserId id;
@@ -11,6 +11,7 @@ public class UserDTO {
   public final String email;
   public final int age;
   public final UserStatus status;
+
   private UserDTO(UserId id, String firstName, String lastName, String email, int age, UserStatus status) {
     this.id = id;
     this.firstName = firstName;
@@ -21,6 +22,7 @@ public class UserDTO {
   }
 
   public static UserDTO of(User user) {
-    return new UserDTO(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAge(), user.getStatus());
+    return new UserDTO(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAge(),
+        user.getStatus());
   }
 }

@@ -1,8 +1,8 @@
 package dev.devloup.core;
 
-public interface EventBus {
+public interface EventBus<E extends Event> {
 
-  void notifyListeners(ApplicationEvent event);
+  void notifyListeners(E event);
 
-  void subscribe(Class<ApplicationEvent> classE, ApplicationEventListener<ApplicationEvent> listener);
+  void registerListener(Listener<E> listener);
 }

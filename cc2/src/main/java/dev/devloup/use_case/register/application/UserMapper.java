@@ -1,10 +1,10 @@
-package dev.devloup.application.port.out;
+package dev.devloup.use_case.register.application;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import dev.devloup.application.port.in.UserDTO;
-import dev.devloup.domain.User;
+import dev.devloup.shared.domain.User;
+import dev.devloup.use_case.register.exposition.UserDTO;
 
 public class UserMapper {
   public UserDTO mapUserToUserDTO(User user) {
