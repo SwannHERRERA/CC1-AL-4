@@ -1,5 +1,7 @@
 package dev.devloup.core;
 
-public interface ApplicationEventListener<E extends ApplicationEvent> {
-  void listenTo(E event);
+import java.util.function.Consumer;
+
+public interface ApplicationEventListener<E extends ApplicationEvent> extends Consumer<E> {
+  void accept(E event);
 }
