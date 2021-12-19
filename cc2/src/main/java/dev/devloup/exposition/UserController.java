@@ -1,4 +1,4 @@
-package dev.devloup.adapter.in.web_administration;
+package dev.devloup.exposition;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import dev.devloup.application.port.in.GetUserByIdQuery;
-import dev.devloup.application.port.in.ListAllUserQuery;
-import dev.devloup.application.port.in.ListUserUseCase;
-import dev.devloup.application.port.in.UserDTO;
+import dev.devloup.use_case.register.exposition.GetUserByIdQuery;
+import dev.devloup.use_case.register.exposition.ListAllUserQuery;
+import dev.devloup.use_case.register.exposition.ListUserUseCase;
+import dev.devloup.use_case.register.exposition.UserDTO;
 
 @Path("/admin/register")
 @Produces(MediaType.APPLICATION_JSON)

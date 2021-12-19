@@ -1,4 +1,4 @@
-package dev.devloup.adapter.in.web_public;
+package dev.devloup.exposition;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -8,8 +8,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import dev.devloup.application.port.in.CreateUserCommand;
-import dev.devloup.application.port.in.CreateUserUseCase;
+import dev.devloup.use_case.register.exposition.CreateUserCommand;
+import dev.devloup.use_case.register.exposition.CreateUserUseCase;
 
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
