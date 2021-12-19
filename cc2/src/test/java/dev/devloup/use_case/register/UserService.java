@@ -1,0 +1,119 @@
+package dev.devloup.use_case.register;
+/*
+ * import static org.junit.jupiter.api.Assertions.assertEquals;
+ * import static org.junit.jupiter.api.Assertions.assertNotNull;
+ * import static org.junit.jupiter.api.Assertions.assertThrows;
+ * import static org.junit.jupiter.api.Assertions.assertTrue;
+ * import static org.mockito.Mockito.times;
+ * import static org.mockito.Mockito.verify;
+ * 
+ * import org.assertj.core.api.Assertions;
+ * import org.junit.jupiter.api.Test;
+ * import org.mockito.Mockito;
+ * 
+ * import dev.devloup.adapter.out.persistence.InMemoryUserRepository;
+ * import dev.devloup.application.port.in.CreateUserCommand;
+ * import dev.devloup.application.port.in.CreateUserEvent;
+ * import dev.devloup.application.port.in.PaymentEvent;
+ * import dev.devloup.application.port.out.UserMapper;
+ * import dev.devloup.core.ApplicationEvent;
+ * import dev.devloup.core.ApplicationEventListener;
+ * import dev.devloup.core.EventBus;
+ * import dev.devloup.core.SimpleEventBus;
+ * import dev.devloup.domain.Money;
+ * import dev.devloup.domain.UserRepository;
+ * import dev.devloup.old_test.DummyCreateUserEventListener;
+ * 
+ * class UserServiceTest {
+ * private final UserRepository userRepository = new InMemoryUserRepository();
+ * private final EventBus<ApplicationEvent> eventBus = new SimpleEventBus<>();
+ * private final String firstName = "Swann";
+ * private final String lastName = "HERRERA";
+ * private final String email = "swann@devloup.dev";
+ * private final UserMapper userMapper = new UserMapper();
+ * private final int age = 20;
+ * private final UserService userService;
+ * 
+ * UserServiceTest() {
+ * userService = new UserService(userRepository, eventBus, userMapper);
+ * }
+ * 
+ * @Test
+ * void test_create_user_with_valid_data_is_a_success() {
+ * CreateUserEvent event = userService.createUser(new
+ * CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+ * assertEquals(email, event.getUser().getEmail());
+ * }
+ * 
+ * @Test
+ * void test_create_user_with_valid_data_add_a_user_to_the_repo() {
+ * userService.createUser(new CreateUserCommand(firstName, lastName, email, age,
+ * Money.ZERO));
+ * var user = userRepository.findByEmail(email).get();
+ * assertNotNull(user);
+ * }
+ * 
+ * @Test
+ * void test_add_two_users_with_the_same_email() {
+ * CreateUserCommand command1 = new CreateUserCommand(firstName, lastName,
+ * email, age, Money.ZERO);
+ * userService.createUser(command1);
+ * CreateUserCommand command2 = new CreateUserCommand("different firstname",
+ * "different lastname", email, 80,
+ * Money.ZERO);
+ * Exception exception = assertThrows(IllegalArgumentException.class, () ->
+ * userService.createUser(command2));
+ * String message = exception.getMessage();
+ * assertTrue(message.contains("Email already exists"));
+ * }
+ * 
+ * @Test
+ * void test_user_creation_send_event() {
+ * ApplicationEventListener<CreateUserEvent> listener = Mockito.spy(new
+ * DummyCreateUserEventListener());
+ * eventBus.subscribe(CreateUserEvent.class, listener);
+ * CreateUserEvent event = userService.createUser(new
+ * CreateUserCommand(firstName, lastName, email, age, Money.ZERO));
+ * verify(listener, times(1)).listenTo(event);
+ * }
+ * 
+ * @Test
+ * void test_user_creation_call_enrollement_listener() {
+ * ApplicationEventListener<CreateUserEvent> listener = Mockito.spy(new
+ * DummyCreateUserEventListener());
+ * eventBus.subscribe(CreateUserEvent.class, listener);
+ * CreateUserEvent event = userService
+ * .createUser(new CreateUserCommand(firstName, lastName, email, age,
+ * Money.of(500)));
+ * verify(listener, times(1)).listenTo(event);
+ * }
+ * 
+ * @Test
+ * void test_list_all_user_when_list_is_empty() {
+ * var users = userService.listAll(new DummyListAllUserQuery());
+ * Assertions.assertThat(users).isEmpty();
+ * }
+ * 
+ * @Test
+ * void test_list_all_user_when_list_has_one_user() {
+ * userService.createUser(new CreateUserCommand(firstName, lastName, email, age,
+ * Money.ZERO));
+ * var users = userService.listAll(new DummyListAllUserQuery());
+ * Assertions.assertThat(users).isNotEmpty().size().isEqualTo(1);
+ * }
+ * 
+ * @Test
+ * void test_list_all_user_when_list_has_many_user() {
+ * var email2 = "toto@gmail.com";
+ * var email3 = "toto@ukulele.com";
+ * userService.createUser(new CreateUserCommand(firstName, lastName, email, age,
+ * Money.ZERO));
+ * userService.createUser(new CreateUserCommand(firstName, lastName, email2,
+ * age, Money.ZERO));
+ * userService.createUser(new CreateUserCommand(firstName, lastName, email3,
+ * age, Money.ZERO));
+ * var users = userService.listAll(new DummyListAllUserQuery());
+ * Assertions.assertThat(users).isNotEmpty().size().isEqualTo(3);
+ * }
+ * }
+ */

@@ -1,4 +1,4 @@
-package dev.devloup.domain;
+package dev.devloup.core;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -6,19 +6,18 @@ import static org.mockito.Mockito.verify;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import dev.devloup.DummyEvent;
-import dev.devloup.DummyEventListener;
-import dev.devloup.core.EventBus;
+import dev.devloup.dummys.DummyEvent;
+import dev.devloup.dummys.DummyEventListener;
 
-public class EventBusTest {
+class SimpleEventBusTest {
   private final Listener<DummyEvent> listener1;
   private final Listener<DummyEvent> listener2;
   private final EventBus<DummyEvent> bus;
 
-  EventBusTest() {
+  public SimpleEventBusTest() {
     listener1 = Mockito.spy(new DummyEventListener());
     listener2 = Mockito.spy(new DummyEventListener());
-    bus = new EventBus<>();
+    bus = new SimpleEventBus<DummyEvent>();
   }
 
   @Test

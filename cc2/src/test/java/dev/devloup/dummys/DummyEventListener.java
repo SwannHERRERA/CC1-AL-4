@@ -1,6 +1,6 @@
-package dev.devloup;
+package dev.devloup.dummys;
 
-import dev.devloup.domain.Listener;
+import dev.devloup.core.Listener;
 
 public class DummyEventListener implements Listener<DummyEvent> {
   @Override

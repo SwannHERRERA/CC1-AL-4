@@ -1,15 +1,14 @@
-package dev.devloup.adapter.in.web;
+package dev.devloup.expostion;
 
 import org.junit.jupiter.api.Test;
 
 import io.quarkus.test.junit.QuarkusTest;
-
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-public class RegistrationControllerTest {
+class UserControllerTest {
   @Test
-  public void testPost() {
+  void testPost() {
     given()
         .when().post("/register")
         .then().statusCode(200);

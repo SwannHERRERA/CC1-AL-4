@@ -1,4 +1,4 @@
-package dev.devloup;
+package dev.devloup.dummys;
 
 import java.time.ZonedDateTime;
 import java.util.UUID;

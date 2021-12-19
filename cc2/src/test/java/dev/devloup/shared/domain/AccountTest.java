@@ -1,4 +1,4 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -13,13 +13,12 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import dev.devloup.DummyEvent;
-import dev.devloup.DummyPaymentListener;
-import dev.devloup.application.port.in.PaymentEvent;
-import dev.devloup.application.port.out.exception.NegativeMoneyAmount;
 import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
 import dev.devloup.core.SimpleEventBus;
+import dev.devloup.dummys.DummyEvent;
+import dev.devloup.dummys.DummyPaymentListener;
+import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
 
 public class AccountTest {
   private final EventBus<ApplicationEvent> bus = new SimpleEventBus<>();
@@ -78,14 +77,14 @@ public class AccountTest {
   }
 
   @Test
-  void test_event_bus_is_imformed() {
+  void test_event_bus_is_informed() {
     var money = Money.of(200);
     var moneySend = Money.of(20);
     var sender = Account.of(money, bus);
     var reciver = Account.of(Money.ZERO, bus);
     var listener = Mockito.spy(new DummyPaymentListener());
-    bus.subscribe(DummyPaymentListener.class, listener);
+    bus.registerListener(listener);
     assertTrue(sender.sendMoney(moneySend, reciver));
-    verify(listener, times(1)).listenTo(paymentCaptor.capture());
+    verify(listener, times(1)).accept(paymentCaptor.capture());
   }
 }

@@ -6,8 +6,8 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class SimpleEventBus<E extends ApplicationEvent> {
-  private Set<ApplicationEventListener<E>> listeners;
+public class SimpleEventBus<E extends Event> implements EventBus<E> {
+  private Set<Listener<E>> listeners;
 
   public SimpleEventBus() {
     this.listeners = new HashSet<>();
@@ -19,7 +19,9 @@ public class SimpleEventBus<E extends ApplicationEvent> {
     }
   }
 
-  public void registerListener(ApplicationEventListener<E> listener) {
+  @Override
+  public void registerListener(Listener<E> listener) {
     listeners.add(listener);
+
   }
 }

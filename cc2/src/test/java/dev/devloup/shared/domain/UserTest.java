@@ -1,4 +1,4 @@
-package dev.devloup.domain;
+package dev.devloup.shared.domain;
 
 import java.util.UUID;
 
