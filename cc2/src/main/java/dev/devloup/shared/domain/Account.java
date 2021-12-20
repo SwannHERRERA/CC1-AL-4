@@ -3,7 +3,6 @@ package dev.devloup.shared.domain;
 import java.util.Objects;
 import java.util.UUID;
 
-import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.Entity;
 import dev.devloup.core.EventBus;
 import dev.devloup.use_case.register.exposition.PaymentEvent;
@@ -11,21 +10,21 @@ import dev.devloup.use_case.register.exposition.PaymentEvent;
 @Entity
 public class Account {
   private Money balance;
-  private final EventBus<ApplicationEvent> eventBus;
+  private final EventBus<PaymentEvent> eventBus;
   private final UUID id;
 
-  private Account(UUID id, Money balance, EventBus<ApplicationEvent> eventBus) throws IllegalArgumentException {
+  private Account(UUID id, Money balance, EventBus<PaymentEvent> eventBus) throws IllegalArgumentException {
     this.id = id;
     this.balance = Objects.requireNonNull(balance);
     this.eventBus = eventBus;
   }
 
-  public static Account of(Money balance, EventBus<ApplicationEvent> eventBus) {
+  public static Account of(Money balance, EventBus<PaymentEvent> eventBus) {
     var id = UUID.randomUUID();
     return new Account(id, balance, eventBus);
   }
 
-  public static Account withUUID(UUID id, Money balance, EventBus<ApplicationEvent> eventBus) {
+  public static Account withUUID(UUID id, Money balance, EventBus<PaymentEvent> eventBus) {
     return new Account(id, balance, eventBus);
   }
 

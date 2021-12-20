@@ -13,17 +13,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;
 
-import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
 import dev.devloup.core.SimpleEventBus;
-import dev.devloup.dummys.DummyEvent;
 import dev.devloup.dummys.DummyPaymentListener;
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
+import dev.devloup.use_case.register.exposition.PaymentEvent;
 
 public class AccountTest {
-  private final EventBus<ApplicationEvent> bus = new SimpleEventBus<>();
+  private final EventBus<PaymentEvent> bus = new SimpleEventBus<>();
 
-  private ArgumentCaptor<DummyEvent> paymentCaptor = ArgumentCaptor.forClass(DummyEvent.class);
+  private ArgumentCaptor<PaymentEvent> paymentCaptor = ArgumentCaptor.forClass(PaymentEvent.class);
 
   @Test
   void test_creation() {
