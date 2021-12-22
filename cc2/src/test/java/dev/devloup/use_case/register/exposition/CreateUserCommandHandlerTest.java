@@ -11,7 +11,6 @@ import dev.devloup.core.EventBus;
 import dev.devloup.core.Listener;
 import dev.devloup.core.SimpleEventBus;
 import dev.devloup.dummys.DummyEnrollementListener;
-import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
 
 class CreateUserCommandHandlerTest {
@@ -21,7 +20,7 @@ class CreateUserCommandHandlerTest {
   private final String lastname = "HERRERA";
   private final String email = "swann@graines-octets.com";
   private final int age = 21;
-  private final Money startBalance = Money.ZERO;
+  private final long startBalance = 0;
   private final EventBus<CreateUserEvent> createUserBus = new SimpleEventBus<CreateUserEvent>();
   private final EventBus<PaymentEvent> paymentBus = new SimpleEventBus<PaymentEvent>();
 

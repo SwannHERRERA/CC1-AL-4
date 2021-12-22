@@ -1,7 +1,5 @@
 package dev.devloup.use_case.register.exposition;
 
-import dev.devloup.shared.domain.Money;
-
 public class CreateUserCommand {
   public final String firstName;
   public final String lastName;
@@ -9,12 +7,12 @@ public class CreateUserCommand {
   public final int age;
   public final long startBalance;
 
-  public CreateUserCommand(String firstName, String lastName, String email, int age, Money startBalance) {
+  public CreateUserCommand(String firstName, String lastName, String email, int age, long startBalance) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.age = age;
-    this.startBalance = startBalance.toPrimitive();
+    this.startBalance = startBalance;
   }
 
   @Override

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
@@ -24,12 +25,14 @@ public class UserController {
   }
 
   @GET
-  public List<UserResponse> getAllUsers(ListAllUserQuery query) {
+  public List<UserResponse> getAllUsers() {
+    ListAllUserQuery query = new ListAllUserQuery();
     return listUserUseCase.listAll(query);
   }
 
   @GET
-  public UserResponse getUser(GetUserByIdQuery query) {
-    return listUserUseCase.get(query);
+  @Path("/{id}")
+  public UserResponse getUser(@PathParam("id") GetUserByIdQuery id) {
+    return listUserUseCase.get(id);
   }
 }

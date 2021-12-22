@@ -1,5 +1,7 @@
 package dev.devloup.use_case.register.exposition;
 
+import java.util.UUID;
+
 import dev.devloup.shared.domain.UserId;
 
 public class GetUserByIdQuery {
@@ -11,5 +13,9 @@ public class GetUserByIdQuery {
 
   public UserId getId() {
     return id;
+  }
+
+  public static GetUserByIdQuery fromString(String string) {
+    return new GetUserByIdQuery(UserId.of(UUID.fromString(string)));
   }
 }
