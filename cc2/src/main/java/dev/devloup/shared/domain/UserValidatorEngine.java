@@ -11,7 +11,7 @@ import dev.devloup.core.Engine;
 public class UserValidatorEngine implements Predicate<User> {
   private static final UserValidatorEngine INSTANCE = new UserValidatorEngine();
 
-  private static final int AGE_OF_MAJORITY = 18;
+  public static final int AGE_OF_MAJORITY = 18;
 
   private UserValidatorEngine() {
   }

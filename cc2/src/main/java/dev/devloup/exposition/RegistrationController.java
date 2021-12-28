@@ -10,6 +10,7 @@ import javax.ws.rs.core.Response.Status;
 
 import dev.devloup.use_case.register.exposition.CreateUserCommand;
 import dev.devloup.use_case.register.exposition.CreateUserUseCase;
+import dev.devloup.use_case.register.exposition.UserRequest;
 
 @Path("/register")
 @Produces(MediaType.APPLICATION_JSON)
@@ -22,8 +23,10 @@ public class RegistrationController {
   }
 
   @POST
-  public Response post(CreateUserCommand command) {
+  public Response post(UserRequest userRequest) {
     try {
+      var command = new CreateUserCommand(userRequest.firstName, userRequest.lastName, userRequest.email,
+          userRequest.age, 0);
       var event = createUserUseCase.createUser(command);
       return Response.ok(event.getId().toString()).build();
     } catch (Exception e) {
