@@ -14,13 +14,13 @@ import dev.devloup.use_case.register.exposition.ListAllUserQuery;
 import dev.devloup.use_case.register.exposition.ListUserUseCase;
 import dev.devloup.use_case.register.exposition.UserResponse;
 
-@Path("/admin/register")
+@Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserController {
+public class AdminUserController {
   private final ListUserUseCase listUserUseCase;
 
-  public UserController(ListUserUseCase listUserUseCase) {
+  public AdminUserController(ListUserUseCase listUserUseCase) {
     this.listUserUseCase = listUserUseCase;
   }
 
