@@ -44,3 +44,5 @@ Je me demande comment est ce que je peux intérrpeter les erreurs que quarkus ca
 - Faire un petit détail des dépendances que j'ai
 - Faire un schema de l'architecture que j'ai mise en place
 - expliqué certain choix au travers d'une ADR
+
+Ce n'est pas dans le role de l'entité Account d'avoir un event bus et de lancer des événements.

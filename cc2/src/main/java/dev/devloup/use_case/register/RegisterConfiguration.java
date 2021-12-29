@@ -21,7 +21,7 @@ public class RegisterConfiguration {
 
   @ApplicationScoped
   public CreateUserCommandHandler createUserCommandHandler() {
-    return new CreateUserCommandHandler(eventBusCreateUserEvent(), eventBusPayment(), inMemoryRepository());
+    return new CreateUserCommandHandler(eventBusCreateUserEvent(), inMemoryRepository());
   }
 
   @ApplicationScoped

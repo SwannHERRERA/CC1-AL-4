@@ -22,10 +22,9 @@ final class CreateUserCommandHandlerTest {
   private final int age = 21;
   private final long startBalance = 0;
   private final EventBus<CreateUserEvent> createUserBus = new SimpleEventBus<CreateUserEvent>();
-  private final EventBus<PaymentEvent> paymentBus = new SimpleEventBus<PaymentEvent>();
 
   CreateUserCommandHandlerTest() {
-    commandHandler = new CreateUserCommandHandler(createUserBus, paymentBus, new InMemoryUserRepository());
+    commandHandler = new CreateUserCommandHandler(createUserBus, new InMemoryUserRepository());
   }
 
   @Test

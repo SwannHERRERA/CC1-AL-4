@@ -4,30 +4,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mockito;
 
-import dev.devloup.core.EventBus;
-import dev.devloup.core.SimpleEventBus;
-import dev.devloup.dummys.DummyPaymentListener;
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
-import dev.devloup.use_case.register.exposition.PaymentEvent;
 
 public final class AccountTest {
-  private final EventBus<PaymentEvent> bus = new SimpleEventBus<>();
-
-  private ArgumentCaptor<PaymentEvent> paymentCaptor = ArgumentCaptor.forClass(PaymentEvent.class);
-
   @Test
   void test_creation() {
     var money = Money.of(200);
-    var account = Account.of(money, bus);
+    var account = Account.of(money);
     account.getId();
     assertEquals(money, account.getBalance());
   }
@@ -36,14 +24,14 @@ public final class AccountTest {
   void test_creation_with_custom_id() {
     var uuid = UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d");
     var money = Money.of(10);
-    var account = Account.withUUID(uuid, money, bus);
+    var account = Account.withUUID(uuid, money);
     assertEquals(account.getId(), uuid);
     assertEquals(money, account.getBalance());
   }
 
   @Test
   void test_creation_with_balance_at_0() {
-    var account = Account.of(Money.ZERO, bus);
+    var account = Account.of(Money.ZERO);
     assertEquals(Money.ZERO, account.getBalance());
   }
 
@@ -55,8 +43,8 @@ public final class AccountTest {
   @Test
   void test_send_money() {
     var money = Money.of(200);
-    var sender = Account.of(money, bus);
-    var reciver = Account.of(Money.ZERO, bus);
+    var sender = Account.of(money);
+    var reciver = Account.of(Money.ZERO);
     var moneySend = Money.of(20);
     assertTrue(sender.sendMoney(moneySend, reciver));
     assertEquals(moneySend.getAmount(), reciver.getBalance().getAmount());
@@ -67,8 +55,8 @@ public final class AccountTest {
   @Test
   void test_send_more_money_money_than_account_have() {
     var money = Money.of(20);
-    var sender = Account.of(money, bus);
-    var reciver = Account.of(Money.ZERO, bus);
+    var sender = Account.of(money);
+    var reciver = Account.of(Money.ZERO);
     var moneySend = Money.of(200);
     assertFalse(sender.sendMoney(moneySend, reciver));
     assertEquals(money.getAmount(), sender.getBalance().getAmount());
@@ -79,11 +67,9 @@ public final class AccountTest {
   void test_event_bus_is_informed() {
     var money = Money.of(200);
     var moneySend = Money.of(20);
-    var sender = Account.of(money, bus);
-    var reciver = Account.of(Money.ZERO, bus);
-    var listener = Mockito.spy(new DummyPaymentListener());
-    bus.registerListener(listener);
+    var sender = Account.of(money);
+    var reciver = Account.of(Money.ZERO);
+
     assertTrue(sender.sendMoney(moneySend, reciver));
-    verify(listener, times(1)).accept(paymentCaptor.capture());
   }
 }

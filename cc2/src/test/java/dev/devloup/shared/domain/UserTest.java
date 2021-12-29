@@ -9,9 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import dev.devloup.core.SimpleEventBus;
-import dev.devloup.use_case.register.exposition.PaymentEvent;
-
 final class UserTest {
   private final UserId id = UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d"));
   private final String firstName = "Swann";
@@ -19,7 +16,7 @@ final class UserTest {
   private final String email = "swann@devloup.dev";
   private final int age = 20;
   private final UserSubscribtion subscribtion = UserSubscribtion.newDefaultSubscribtion();
-  private final Account account = Account.of(Money.ZERO, new SimpleEventBus<PaymentEvent>());
+  private final Account account = Account.of(Money.ZERO);
 
   @Test
   void test_creation_of_user() {
