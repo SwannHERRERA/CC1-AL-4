@@ -46,3 +46,5 @@ Je me demande comment est ce que je peux intérrpeter les erreurs que quarkus ca
 - expliqué certain choix au travers d'une ADR
 
 Ce n'est pas dans le role de l'entité Account d'avoir un event bus et de lancer des événements.
+
+refacto de manière a n'avoir qu'un event bus

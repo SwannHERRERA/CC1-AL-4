@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
 
-public final class AccountTest {
+final class AccountTest {
   @Test
   void test_creation() {
     var money = Money.of(200);
