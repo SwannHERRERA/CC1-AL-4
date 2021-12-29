@@ -9,7 +9,7 @@ import org.mockito.Mockito;
 import dev.devloup.dummys.DummyEvent;
 import dev.devloup.dummys.DummyEventListener;
 
-class SimpleEventBusTest {
+final class SimpleEventBusTest {
   private final Listener<DummyEvent> listener1;
   private final Listener<DummyEvent> listener2;
   private final EventBus<DummyEvent> bus;

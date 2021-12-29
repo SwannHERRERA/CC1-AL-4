@@ -6,7 +6,7 @@ import java.nio.file.Path;
 
 import dev.devloup.core.Logger;
 
-public class FileLogger implements Logger {
+public final class FileLogger implements Logger {
     private final Path logFile;
 
     public FileLogger(Path logFile) {

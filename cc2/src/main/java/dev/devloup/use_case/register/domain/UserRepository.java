@@ -13,5 +13,7 @@ public interface UserRepository {
 
   List<User> listAll();
 
+  List<User> listAllActive();
+
   void add(User user) throws IllegalArgumentException;
 }

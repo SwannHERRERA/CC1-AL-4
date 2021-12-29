@@ -12,11 +12,12 @@ import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.domain.User;
 import dev.devloup.shared.domain.UserId;
 import dev.devloup.shared.domain.UserStatus;
+import dev.devloup.shared.domain.UserSubscribtion;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
 import dev.devloup.use_case.register.application.UserMapper;
 import dev.devloup.use_case.register.domain.UserRepository;
 
-class ListUserQueryHandlerTest {
+final class ListUserQueryHandlerTest {
   private final ListUserQueryHandler queryHandler;
   private final UserRepository userRepository;
   private final UserMapper userMapper;
@@ -31,7 +32,7 @@ class ListUserQueryHandlerTest {
     this.defaultUser = User.of(UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d")), "firstName",
         "lastName",
         "swann@graines-octets.com", 21, Account.of(Money.ZERO, paymentBus),
-        UserStatus.VERIFIED);
+        UserSubscribtion.newDefaultSubscribtion());
   }
 
   @Test
@@ -75,7 +76,7 @@ class ListUserQueryHandlerTest {
   @Test
   void get_all_user_when_we_have_many_user() {
     var user2 = User.of(UserId.generate(), "firstname2", "lastname2", "email@email.sh", 909,
-        Account.of(Money.ZERO, paymentBus), UserStatus.VERIFIED);
+        Account.of(Money.ZERO, paymentBus), UserSubscribtion.newDefaultSubscribtion());
     var userResponse = userMapper.mapUserToUserResponse(defaultUser);
     var user2Response = userMapper.mapUserToUserResponse(user2);
     userRepository.add(defaultUser);

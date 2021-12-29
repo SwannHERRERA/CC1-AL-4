@@ -1,6 +1,6 @@
 package dev.devloup.use_case.register.exposition;
 
-public class CreateUserCommand {
+public final class CreateUserCommand {
   public final String firstName;
   public final String lastName;
   public final String email;

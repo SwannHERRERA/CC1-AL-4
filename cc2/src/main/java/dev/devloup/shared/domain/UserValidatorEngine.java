@@ -1,6 +1,5 @@
 package dev.devloup.shared.domain;
 
-import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.apache.commons.validator.routines.EmailValidator;
@@ -23,9 +22,9 @@ public class UserValidatorEngine implements Predicate<User> {
   @Override
   public boolean test(User user) {
     try {
-      Objects.requireNonNull(user.getFirstName());
-      Objects.requireNonNull(user.getLastName());
-      Objects.requireNonNull(user.getId());
+      user.getFirstName();
+      user.getLastName();
+      user.getId();
     } catch (Exception e) {
       return false;
     }

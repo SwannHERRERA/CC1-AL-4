@@ -6,7 +6,7 @@ import java.util.Set;
 import javax.enterprise.context.ApplicationScoped;
 
 @ApplicationScoped
-public class SimpleEventBus<E extends Event> implements EventBus<E> {
+public final class SimpleEventBus<E extends Event> implements EventBus<E> {
   private Set<Listener<E>> listeners;
 
   public SimpleEventBus() {

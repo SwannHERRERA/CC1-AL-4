@@ -6,7 +6,7 @@ import javax.validation.constraints.NotBlank;
 
 import dev.devloup.shared.domain.UserValidatorEngine;
 
-public class UserRequest {
+public final class UserRequest {
   @NotBlank(message = "firstname may not be blank")
   public String firstName;
   @NotBlank(message = "firstname may not be blank")

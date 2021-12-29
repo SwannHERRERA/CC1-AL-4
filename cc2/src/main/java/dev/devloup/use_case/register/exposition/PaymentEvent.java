@@ -8,7 +8,7 @@ import dev.devloup.shared.domain.Account;
 import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.domain.TransactionStatus;
 
-public class PaymentEvent implements ApplicationEvent {
+public final class PaymentEvent implements ApplicationEvent {
   private final UUID id;
   private final ZonedDateTime occurrenceDate;
   private final Account source;

@@ -1,5 +1,5 @@
 package dev.devloup.use_case.register.exposition;
 
-public class ListAllUserQuery {
+public final class ListAllUserQuery {
 
 }

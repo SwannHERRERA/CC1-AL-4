@@ -6,7 +6,7 @@ import java.util.UUID;
 import dev.devloup.core.ApplicationEvent;
 import dev.devloup.shared.domain.User;
 
-public class CreateUserEvent implements ApplicationEvent {
+public final class CreateUserEvent implements ApplicationEvent {
   private final UUID id;
   private final CreateUserCommand command;
   private final User user;

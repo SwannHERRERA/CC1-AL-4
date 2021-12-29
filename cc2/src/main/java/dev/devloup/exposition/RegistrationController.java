@@ -26,12 +26,17 @@ public class RegistrationController {
   @POST
   public Response post(UserRequest userRequest) {
     try {
-      var command = new CreateUserCommand(userRequest.firstName, userRequest.lastName, userRequest.email,
-          userRequest.age, 0);
+      var command = new CreateUserCommand(
+          userRequest.firstName,
+          userRequest.lastName,
+          userRequest.email,
+          userRequest.age,
+          0);
       var event = createUserUseCase.createUser(command);
       var response = new CreateUserResponse(event.getUser().getId(), event.getId());
       return Response.ok(response).build();
     } catch (Exception e) {
+      // TODO catch many type of error somtime render 500 / 400 email already exist
       return Response.status(Status.BAD_REQUEST).entity(e.toString()).build();
     }
   }

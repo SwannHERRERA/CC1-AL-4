@@ -13,7 +13,7 @@ import dev.devloup.core.SimpleEventBus;
 import dev.devloup.dummys.DummyEnrollementListener;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
 
-class CreateUserCommandHandlerTest {
+final class CreateUserCommandHandlerTest {
   CreateUserCommandHandler commandHandler;
 
   private final String firstname = "Swann";

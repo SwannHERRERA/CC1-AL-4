@@ -6,7 +6,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
 
 @QuarkusTest
-class UserControllerTest {
+final class UserControllerTest {
   @Test
   void testPost() {
     given()

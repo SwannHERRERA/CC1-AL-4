@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import dev.devloup.shared.domain.UserId;
 
-public class GetUserByIdQuery {
+public final class GetUserByIdQuery {
   private UserId id;
 
   public GetUserByIdQuery(UserId id) {

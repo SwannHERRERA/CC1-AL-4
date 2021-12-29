@@ -5,7 +5,7 @@ import java.util.List;
 import dev.devloup.use_case.register.application.UserMapper;
 import dev.devloup.use_case.register.domain.UserRepository;
 
-public class ListUserQueryHandler implements ListUserUseCase {
+public final class ListUserQueryHandler implements ListUserUseCase {
   private final UserMapper userMapper;
   private final UserRepository userRepository;
 

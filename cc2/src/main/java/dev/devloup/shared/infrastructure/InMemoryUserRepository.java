@@ -5,14 +5,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import javax.enterprise.context.ApplicationScoped;
-
 import dev.devloup.shared.domain.User;
 import dev.devloup.shared.domain.UserId;
+import dev.devloup.shared.domain.UserStatus;
 import dev.devloup.use_case.register.domain.UserRepository;
 
-@ApplicationScoped
-public class InMemoryUserRepository implements UserRepository {
+public final class InMemoryUserRepository implements UserRepository {
   List<User> userList = new ArrayList<>();
 
   @Override
@@ -36,5 +34,10 @@ public class InMemoryUserRepository implements UserRepository {
   @Override
   public List<User> listAll() {
     return Collections.unmodifiableList(userList);
+  }
+
+  @Override
+  public List<User> listAllActive() {
+    return userList.stream().filter(user -> user.getSubscribtion().getStatus() == UserStatus.VERIFIED).toList();
   }
 }

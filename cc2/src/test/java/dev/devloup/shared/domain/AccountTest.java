@@ -19,7 +19,7 @@ import dev.devloup.dummys.DummyPaymentListener;
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
 import dev.devloup.use_case.register.exposition.PaymentEvent;
 
-public class AccountTest {
+public final class AccountTest {
   private final EventBus<PaymentEvent> bus = new SimpleEventBus<>();
 
   private ArgumentCaptor<PaymentEvent> paymentCaptor = ArgumentCaptor.forClass(PaymentEvent.class);

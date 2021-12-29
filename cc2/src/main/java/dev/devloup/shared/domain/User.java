@@ -1,5 +1,7 @@
 package dev.devloup.shared.domain;
 
+import java.util.Objects;
+
 import dev.devloup.core.Entity;
 
 @Entity
@@ -10,39 +12,33 @@ public class User {
   private final String email;
   private final int age;
   private final Account account;
-  private UserStatus status;
-
-  public void setStatus(UserStatus status) {
-    this.status = status;
-  }
+  private final UserSubscribtion userSubscribtion;
 
   private User(UserId id, String firstName, String lastName, String email, int age, Account account,
-      UserStatus status) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email.toLowerCase();
-    this.age = age;
-    this.account = account;
-    this.status = status;
+      UserSubscribtion userSubscribtion) {
+    this.id = Objects.requireNonNull(id);
+    this.firstName = Objects.requireNonNull(firstName);
+    this.lastName = Objects.requireNonNull(lastName);
+    this.email = Objects.requireNonNull(email.toLowerCase());
+    this.age = Objects.requireNonNull(age);
+    this.account = Objects.requireNonNull(account);
+    this.userSubscribtion = Objects.requireNonNull(userSubscribtion);
   }
 
   public static User of(UserId id, String firstName, String lastName, String email, int age, Account account,
-      UserStatus status) throws IllegalArgumentException {
-    var user = new User(id, firstName, lastName, email, age, account, status);
+      UserSubscribtion subscribtion) throws IllegalArgumentException {
+    User user = null;
+    try {
+      user = new User(id, firstName, lastName, email, age, account, subscribtion);
+    } catch (Exception e) {
+      throw new IllegalArgumentException("error arguement throw null pointer exception");
+    }
+
     var validator = UserValidatorEngine.getInstance();
     if (validator.test(user)) {
       return user;
     }
     throw new IllegalArgumentException(validator.getErrorMessage(user));
-  }
-
-  public void validate() {
-    this.status = UserStatus.VERIFIED;
-  }
-
-  public void reject() {
-    this.status = UserStatus.REJECTED;
   }
 
   public UserId getId() {
@@ -69,7 +65,11 @@ public class User {
     return account;
   }
 
+  public UserSubscribtion getSubscribtion() {
+    return userSubscribtion;
+  }
+
   public UserStatus getStatus() {
-    return status;
+    return userSubscribtion.getStatus();
   }
 }

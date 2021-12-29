@@ -4,7 +4,7 @@ import java.util.UUID;
 
 import dev.devloup.shared.domain.UserId;
 
-public class CreateUserResponse {
+public final class CreateUserResponse {
   public final String userId;
   public final String eventId;
 

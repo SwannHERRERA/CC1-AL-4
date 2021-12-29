@@ -6,7 +6,7 @@ import java.util.List;
 import dev.devloup.shared.domain.User;
 import dev.devloup.use_case.register.exposition.UserResponse;
 
-public class UserMapper {
+public final class UserMapper {
   public UserResponse mapUserToUserResponse(User user) {
     return new UserResponse(user.getId(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getAge(),
         user.getStatus());

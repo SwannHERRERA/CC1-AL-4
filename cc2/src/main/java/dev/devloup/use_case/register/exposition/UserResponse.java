@@ -14,7 +14,7 @@ public class UserResponse {
   public final String status;
 
   public UserResponse(UserId id, String firstName, String lastName, String email, int age, UserStatus status) {
-    this.id = Objects.requireNonNull(id.toString());
+    this.id = id.toString();
     this.firstName = Objects.requireNonNull(firstName);
     this.lastName = Objects.requireNonNull(lastName);
     this.email = Objects.requireNonNull(email);

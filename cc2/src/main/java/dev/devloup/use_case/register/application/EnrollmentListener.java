@@ -19,11 +19,13 @@ public final class EnrollmentListener implements ApplicationEventListener<Create
   @Override
   public void accept(CreateUserEvent event) {
     logger.log("user added with command " + event.getCommand());
-    var userAccount = event.getUser().getAccount();
+    var user = event.getUser();
+    var userAccount = user.getAccount();
+    var userSubscribtion = user.getSubscribtion();
     if (userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), reciver)) {
-      event.getUser().validate();
+      userSubscribtion.validate();
     } else {
-      event.getUser().reject();
+      userSubscribtion.reject();
     }
   }
 }
