@@ -58,7 +58,7 @@ final class CreateUserCommandHandlerTest {
   void test_create_user_publish_in_enrollement_bus() {
     var command = new CreateUserCommand(firstname, lastname, email, age, startBalance);
     Listener<CreateUserEvent> enrollmentListener = Mockito.spy(new DummyEnrollementListener());
-    createUserBus.registerListener(enrollmentListener);
+    createUserBus.registerListener(enrollmentListener, CreateUserEvent.class);
     var event = commandHandler.createUser(command);
 
     verify(enrollmentListener, times(1)).accept(event);
