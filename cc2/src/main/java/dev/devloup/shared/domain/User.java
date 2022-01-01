@@ -12,7 +12,7 @@ public class User {
   private final String email;
   private final int age;
   private final Account account;
-  private final UserSubscribtion userSubscribtion;
+  private UserSubscribtion userSubscribtion;
 
   private User(UserId id, String firstName, String lastName, String email, int age, Account account,
       UserSubscribtion userSubscribtion) {
@@ -22,7 +22,7 @@ public class User {
     this.email = Objects.requireNonNull(email.toLowerCase());
     this.age = Objects.requireNonNull(age);
     this.account = Objects.requireNonNull(account);
-    this.userSubscribtion = Objects.requireNonNull(userSubscribtion);
+    this.userSubscribtion = userSubscribtion;
   }
 
   public static User of(UserId id, String firstName, String lastName, String email, int age, Account account,
@@ -70,6 +70,13 @@ public class User {
   }
 
   public UserStatus getStatus() {
+    if (userSubscribtion == null) {
+      return UserStatus.REJECTED;
+    }
     return userSubscribtion.getStatus();
+  }
+
+  public void updateSubscribtion(UserSubscribtion subscribtion) {
+    this.userSubscribtion = subscribtion;
   }
 }

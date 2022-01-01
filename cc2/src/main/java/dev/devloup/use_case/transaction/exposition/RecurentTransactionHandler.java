@@ -1,5 +1,6 @@
 package dev.devloup.use_case.transaction.exposition;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,10 +27,17 @@ public final class RecurentTransactionHandler {
   }
 
   public void batch() {
-    List<User> activeUsers = userRepository.listAllActive();
-    // TODO get que ce qui ont leur date de payement passé d'un mois
-    // Pour tout les utilisateurs regarder si leur date de payement a passer
-    // aujourd'hui, les faire renew leur contrat
+    List<User> userSubscribtionToBeRenewed = userRepository.listAllNonActiveSubscribtion();
+    for (User user : userSubscribtionToBeRenewed) {
+      var account = user.getAccount();
+      var subscribiton = user.getSubscribtion();
+      var transaction = account.sendMoney(Money.of(Config.MONTHLY_SUBSCRIBTION_PRICE), plateformAccount);
+      if (transaction.getStatus() == TransactionStatus.ERROR) {
+        user.updateSubscribtion(subscribiton.reject(ZonedDateTime.now()));
+      } else {
+        user.updateSubscribtion(subscribiton.validate(ZonedDateTime.now()));
+      }
+    }
   }
 
   public Transaction startSubscribtion(User user) {
@@ -37,9 +45,9 @@ public final class RecurentTransactionHandler {
     var userSubscribtion = user.getSubscribtion();
     var transaction = userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), plateformAccount);
     if (transaction.getStatus() == TransactionStatus.SUCCESSED) {
-      userSubscribtion.validate();
+      user.updateSubscribtion(userSubscribtion.validate(ZonedDateTime.now()));
     } else {
-      userSubscribtion.reject();
+      user.updateSubscribtion(userSubscribtion.reject(ZonedDateTime.now()));
     }
     eventBus.notifyListeners(transaction);
     return transaction;

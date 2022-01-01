@@ -22,14 +22,15 @@ public final class CreateUserCommandHandler implements CreateUserUseCase {
   @Override
   public CreateUserEvent createUser(CreateUserCommand command) throws IllegalArgumentException {
     var account = Account.of(Money.of(command.startBalance));
-    var subscribtion = UserSubscribtion.newDefaultSubscribtion();
     var user = User.of(UserId.generate(),
         command.firstName,
         command.lastName,
         command.email,
         command.age,
         account,
-        subscribtion);
+        null);
+    var subscribtion = UserSubscribtion.newDefaultSubscribtion(user.getId());
+    user.updateSubscribtion(subscribtion);
     userRepository.add(user);
     var event = CreateUserEvent.withCommandAndUser(command, user);
     createUserBus.notifyListeners(event);

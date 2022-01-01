@@ -3,6 +3,8 @@ package dev.devloup.use_case.transaction.exposition;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.util.UUID;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
@@ -25,8 +27,10 @@ class RecurentTransactionHandlerTest {
   private final EventBus<ApplicationEvent> bus = new SimpleEventBus<>();
   private final RecurentTransactionHandler transactionHandler = new RecurentTransactionHandler(userRepo,
       Account.of(Money.ZERO), bus);
-  private final User user1 = User.of(UserId.generate(), "firstname", "lastname", "swann@graines-octets.com", 20,
-      Account.of(Money.ZERO), UserSubscribtion.newDefaultSubscribtion());
+  private final User user1 = User.of(UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d")), "firstname",
+      "lastname", "swann@graines-octets.com", 20,
+      Account.of(Money.ZERO),
+      UserSubscribtion.newDefaultSubscribtion(UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d"))));
   private final Listener<Transaction> listener = Mockito.spy(new DummyTransactionListener());
 
   @Test

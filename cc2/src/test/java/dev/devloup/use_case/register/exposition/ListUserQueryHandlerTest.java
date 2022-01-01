@@ -24,10 +24,11 @@ final class ListUserQueryHandlerTest {
     this.userRepository = new InMemoryUserRepository();
     this.userMapper = new UserMapper();
     this.queryHandler = new ListUserQueryHandler(userMapper, userRepository);
-    this.defaultUser = User.of(UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d")), "firstName",
+    UserId userId = UserId.of(UUID.fromString("38400000-8cf0-11bd-b23e-10b96e4ef00d"));
+    this.defaultUser = User.of(userId, "firstName",
         "lastName",
         "swann@graines-octets.com", 21, Account.of(Money.ZERO),
-        UserSubscribtion.newDefaultSubscribtion());
+        UserSubscribtion.newDefaultSubscribtion(userId));
   }
 
   @Test
@@ -70,8 +71,9 @@ final class ListUserQueryHandlerTest {
 
   @Test
   void get_all_user_when_we_have_many_user() {
-    var user2 = User.of(UserId.generate(), "firstname2", "lastname2", "email@email.sh", 909,
-        Account.of(Money.ZERO), UserSubscribtion.newDefaultSubscribtion());
+    var userId = UserId.generate();
+    var user2 = User.of(userId, "firstname2", "lastname2", "email@email.sh", 909,
+        Account.of(Money.ZERO), UserSubscribtion.newDefaultSubscribtion(userId));
     var userResponse = userMapper.mapUserToUserResponse(defaultUser);
     var user2Response = userMapper.mapUserToUserResponse(user2);
     userRepository.add(defaultUser);

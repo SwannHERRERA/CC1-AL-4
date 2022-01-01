@@ -1,5 +1,6 @@
 package dev.devloup.shared.infrastructure;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -37,7 +38,15 @@ public final class InMemoryUserRepository implements UserRepository {
   }
 
   @Override
-  public List<User> listAllActive() {
-    return userList.stream().filter(user -> user.getSubscribtion().getStatus() == UserStatus.VERIFIED).toList();
+  public List<User> listAllNonActiveSubscribtion() {
+    var today = LocalDate.now();
+    return userList.stream().filter(user -> {
+      var subscribtion = user.getSubscribtion();
+      if (subscribtion.getStatus() != UserStatus.VERIFIED) {
+        return false;
+      }
+      var nextBillingDate = subscribtion.getLastBilling().plus(subscribtion.getBillingFrequency()).toLocalDate();
+      return nextBillingDate.isEqual(today);
+    }).toList();
   }
 }

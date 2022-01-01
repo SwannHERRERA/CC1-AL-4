@@ -1,5 +1,6 @@
 package dev.devloup.shared.domain;
 
+import java.time.ZonedDateTime;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -15,7 +16,7 @@ final class UserTest {
   private final String lastName = "HERRERA";
   private final String email = "swann@devloup.dev";
   private final int age = 20;
-  private final UserSubscribtion subscribtion = UserSubscribtion.newDefaultSubscribtion();
+  private final UserSubscribtion subscribtion = UserSubscribtion.newDefaultSubscribtion(id);
   private final Account account = Account.of(Money.ZERO);
 
   @Test
@@ -102,7 +103,8 @@ final class UserTest {
   void test_rejection_user() {
     User user = User.of(id, firstName, lastName, email, age, account, subscribtion);
     assertEquals(UserStatus.CURRENTLY_AUDITED, user.getStatus());
-    user.getSubscribtion().reject();
+    user.updateSubscribtion(user.getSubscribtion().reject(ZonedDateTime.now()));
+    ;
     assertEquals(UserStatus.REJECTED, user.getStatus());
   }
 
@@ -110,7 +112,7 @@ final class UserTest {
   void test_validation_user() {
     User user = User.of(id, firstName, lastName, email, age, account, subscribtion);
     assertEquals(UserStatus.CURRENTLY_AUDITED, user.getStatus());
-    user.getSubscribtion().validate();
+    user.updateSubscribtion(user.getSubscribtion().validate(ZonedDateTime.now()));
     assertEquals(UserStatus.VERIFIED, user.getStatus());
   }
 }

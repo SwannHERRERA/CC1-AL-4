@@ -15,4 +15,22 @@ class TransactionTest {
     Assertions.assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.IN_PROGRESS);
     Assertions.assertThat(transaction.getAmount()).isEqualTo(Money.of(20));
   }
+
+  @Test
+  void test_creation_of_successful_transaction() {
+    var transaction = Transaction.success(reciver, sender, Money.of(20));
+    Assertions.assertThat(transaction.getReciver()).isEqualTo(reciver);
+    Assertions.assertThat(transaction.getSender()).isEqualTo(sender);
+    Assertions.assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.SUCCESSED);
+    Assertions.assertThat(transaction.getAmount()).isEqualTo(Money.of(20));
+  }
+
+  @Test
+  void test_creation_of_failed_transaction() {
+    var transaction = Transaction.failed(reciver, sender, Money.of(20));
+    Assertions.assertThat(transaction.getReciver()).isEqualTo(reciver);
+    Assertions.assertThat(transaction.getSender()).isEqualTo(sender);
+    Assertions.assertThat(transaction.getStatus()).isEqualTo(TransactionStatus.ERROR);
+    Assertions.assertThat(transaction.getAmount()).isEqualTo(Money.of(20));
+  }
 }
