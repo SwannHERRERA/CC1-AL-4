@@ -32,12 +32,12 @@ public class Account {
     return id;
   }
 
-  public boolean sendMoney(Money moneySend, Account dest) {
+  public Transaction sendMoney(Money moneySend, Account dest) {
     if (!balance.isGreaterThanOrEqualTo(moneySend)) {
-      return false;
+      return Transaction.failed(dest, this, moneySend);
     }
     dest.balance = dest.balance.plus(moneySend);
     balance = balance.minus(moneySend);
-    return true;
+    return Transaction.success(dest, this, moneySend);
   }
 }

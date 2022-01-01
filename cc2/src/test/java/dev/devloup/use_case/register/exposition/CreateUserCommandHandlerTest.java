@@ -7,6 +7,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
 import dev.devloup.core.Listener;
 import dev.devloup.core.SimpleEventBus;
@@ -21,10 +22,10 @@ final class CreateUserCommandHandlerTest {
   private final String email = "swann@graines-octets.com";
   private final int age = 21;
   private final long startBalance = 0;
-  private final EventBus<CreateUserEvent> createUserBus = new SimpleEventBus<CreateUserEvent>();
+  private final EventBus<ApplicationEvent> bus = new SimpleEventBus<ApplicationEvent>();
 
   CreateUserCommandHandlerTest() {
-    commandHandler = new CreateUserCommandHandler(createUserBus, new InMemoryUserRepository());
+    commandHandler = new CreateUserCommandHandler(bus, new InMemoryUserRepository());
   }
 
   @Test
@@ -58,7 +59,7 @@ final class CreateUserCommandHandlerTest {
   void test_create_user_publish_in_enrollement_bus() {
     var command = new CreateUserCommand(firstname, lastname, email, age, startBalance);
     Listener<CreateUserEvent> enrollmentListener = Mockito.spy(new DummyEnrollementListener());
-    createUserBus.registerListener(enrollmentListener, CreateUserEvent.class);
+    bus.registerListener(enrollmentListener, CreateUserEvent.class);
     var event = commandHandler.createUser(command);
 
     verify(enrollmentListener, times(1)).accept(event);

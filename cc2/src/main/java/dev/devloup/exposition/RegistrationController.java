@@ -33,7 +33,7 @@ public class RegistrationController {
           userRequest.age,
           0);
       var event = createUserUseCase.createUser(command);
-      var response = new CreateUserResponse(event.getUser().getId(), event.getId());
+      var response = new CreateUserResponse(event.getUser().getId(), event.getUUID());
       return Response.ok(response).build();
     } catch (Exception e) {
       // TODO catch many type of error somtime render 500 / 400 email already exist

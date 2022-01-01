@@ -1,12 +1,12 @@
 package dev.devloup.dummys;
 
 import dev.devloup.core.Listener;
-import dev.devloup.use_case.register.exposition.PaymentEvent;
+import dev.devloup.shared.domain.Transaction;
 
-public class DummyPaymentListener implements Listener<PaymentEvent> {
+public class DummyPaymentListener implements Listener<Transaction> {
 
   @Override
-  public void accept(PaymentEvent t) {
+  public void accept(Transaction t) {
     // DO Nothing
   }
 

@@ -32,13 +32,13 @@ public final class CreateUserEvent implements ApplicationEvent {
   }
 
   @Override
-  public UUID getId() {
-    return id;
+  public UUID getUUID() {
+    return this.id;
   }
 
   @Override
-  public ZonedDateTime getOccurredDate() {
-    return occurrenceDate;
+  public ZonedDateTime getOccurenceDate() {
+    return this.occurrenceDate;
   }
 
 }

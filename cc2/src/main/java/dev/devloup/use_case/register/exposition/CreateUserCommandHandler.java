@@ -1,5 +1,6 @@
 package dev.devloup.use_case.register.exposition;
 
+import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.EventBus;
 import dev.devloup.shared.domain.Account;
 import dev.devloup.shared.domain.Money;
@@ -9,10 +10,10 @@ import dev.devloup.shared.domain.UserSubscribtion;
 import dev.devloup.use_case.register.domain.UserRepository;
 
 public final class CreateUserCommandHandler implements CreateUserUseCase {
-  private final EventBus<CreateUserEvent> createUserBus;
+  private final EventBus<ApplicationEvent> createUserBus;
   private final UserRepository userRepository;
 
-  public CreateUserCommandHandler(EventBus<CreateUserEvent> createUserBus,
+  public CreateUserCommandHandler(EventBus<ApplicationEvent> createUserBus,
       UserRepository userRepository) {
     this.createUserBus = createUserBus;
     this.userRepository = userRepository;

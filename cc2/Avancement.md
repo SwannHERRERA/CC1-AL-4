@@ -36,7 +36,7 @@ Je me demande comment est ce que je peux intérrpeter les erreurs que quarkus ca
 
 ## Todo
 
-- Massuré que quand on crée un user on peut bien le GET
+- M'assuré que quand on crée un user on peut bien le GET
 - Faire un readme
   - Parler de swagger
   - Parler de comment lancer le projet
@@ -47,4 +47,5 @@ Je me demande comment est ce que je peux intérrpeter les erreurs que quarkus ca
 
 Ce n'est pas dans le role de l'entité Account d'avoir un event bus et de lancer des événements.
 
-refacto de manière a n'avoir qu'un event bus
+refacto de manière a n'avoir qu'un event bus fait
+Fait le 29 decembre

@@ -8,12 +8,12 @@ import dev.devloup.core.ApplicationEvent;
 public class DummyEvent2 implements ApplicationEvent {
 
   @Override
-  public UUID getId() {
+  public UUID getUUID() {
     return null;
   }
 
   @Override
-  public ZonedDateTime getOccurredDate() {
+  public ZonedDateTime getOccurenceDate() {
     return null;
   }
 

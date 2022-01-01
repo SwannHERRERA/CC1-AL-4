@@ -64,10 +64,7 @@ public class Money {
     if (getClass() != obj.getClass())
       return false;
     Money other = (Money) obj;
-    if (!other.getAmount().equals(amount)) {
-      return false;
-    }
-    return true;
+    return other.amount.equals(amount);
   }
 
 }

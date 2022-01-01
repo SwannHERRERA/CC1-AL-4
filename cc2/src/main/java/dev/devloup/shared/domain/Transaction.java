@@ -2,8 +2,11 @@ package dev.devloup.shared.domain;
 
 import java.time.ZonedDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
-public class Transaction {
+import dev.devloup.core.ApplicationEvent;
+
+public class Transaction implements ApplicationEvent {
   private final Account reciver;
   private final Account sender;
   private final Money amount;
@@ -26,11 +29,8 @@ public class Transaction {
     }
 
     Transaction other = (Transaction) obj;
-    if (!id.equals(other.id) || !occurenceDate.equals(other.occurenceDate) || !reciver.equals(other.reciver)
-        || !sender.equals(other.sender) || status != other.status) {
-      return false;
-    }
-    return true;
+    return (!id.equals(other.id) || !occurenceDate.equals(other.occurenceDate) || !reciver.equals(other.reciver)
+        || !sender.equals(other.sender) || status != other.status);
   }
 
   public Account getReciver() {
@@ -57,6 +57,10 @@ public class Transaction {
     return status;
   }
 
+  public UUID getUUID() {
+    return id.getId();
+  }
+
   private Transaction(Account reciver, Account sender, Money amount, ZonedDateTime occurenceDate, TransactionId id,
       TransactionStatus status) {
     this.reciver = Objects.requireNonNull(reciver);
@@ -67,7 +71,18 @@ public class Transaction {
     this.status = Objects.requireNonNull(status);
   }
 
-  public static Transaction create(Account reciver, Account sender, Money amount, TransactionStatus status) {
-    return new Transaction(reciver, sender, amount, ZonedDateTime.now(), TransactionId.generate(), status);
+  public static Transaction create(Account reciver, Account sender, Money amount) {
+    return new Transaction(reciver, sender, amount, ZonedDateTime.now(), TransactionId.generate(),
+        TransactionStatus.IN_PROGRESS);
+  }
+
+  public static Transaction failed(Account reciver, Account sender, Money amount) {
+    return new Transaction(reciver, sender, amount, ZonedDateTime.now(), TransactionId.generate(),
+        TransactionStatus.ERROR);
+  }
+
+  public static Transaction success(Account reciver, Account sender, Money amount) {
+    return new Transaction(reciver, sender, amount, ZonedDateTime.now(), TransactionId.generate(),
+        TransactionStatus.SUCCESSED);
   }
 }
