@@ -1,6 +1,7 @@
 package dev.devloup.shared.domain;
 
 import java.math.BigInteger;
+import java.util.Objects;
 
 import dev.devloup.core.Entity;
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
@@ -47,6 +48,26 @@ public class Money {
 
   public String toString() {
     return "Amount : " + amount;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(amount);
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+    if (obj == null)
+      return false;
+    if (getClass() != obj.getClass())
+      return false;
+    Money other = (Money) obj;
+    if (!other.getAmount().equals(amount)) {
+      return false;
+    }
+    return true;
   }
 
 }

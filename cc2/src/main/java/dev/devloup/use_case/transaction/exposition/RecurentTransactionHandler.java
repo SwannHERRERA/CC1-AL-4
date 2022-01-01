@@ -18,4 +18,8 @@ public final class RecurentTransactionHandler {
     // Pour tout les utilisateurs regarder si leur date de payement a passer
     // aujourd'hui, les faire renew leur contrat
   }
+
+  public void startSubscribtion() {
+
+  }
 }
