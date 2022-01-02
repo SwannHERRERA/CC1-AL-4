@@ -49,3 +49,11 @@ Ce n'est pas dans le role de l'entité Account d'avoir un event bus et de lancer
 
 refacto de manière a n'avoir qu'un event bus fait
 Fait le 29 decembre
+
+Samedi 1er janvier
+
+- gestion des erreurs
+- Relecture du sujet et prise en charge des informations qui consittue un user tel que ses compétences, son perimètre d'action, ses heures de travail ...
+- Le scheduler
+- Faire de la documentation
+- Mon utilisateur il a rien pour mettre de l'argent sur son compte

@@ -9,10 +9,10 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import dev.devloup.shared.exposition.UserResponse;
 import dev.devloup.use_case.register.exposition.GetUserByIdQuery;
 import dev.devloup.use_case.register.exposition.ListAllUserQuery;
 import dev.devloup.use_case.register.exposition.ListUserUseCase;
-import dev.devloup.use_case.register.exposition.UserResponse;
 
 @Path("/admin")
 @Produces(MediaType.APPLICATION_JSON)

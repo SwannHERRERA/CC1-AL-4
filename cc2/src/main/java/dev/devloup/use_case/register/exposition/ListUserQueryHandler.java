@@ -2,6 +2,7 @@ package dev.devloup.use_case.register.exposition;
 
 import java.util.List;
 
+import dev.devloup.shared.exposition.UserResponse;
 import dev.devloup.use_case.register.application.UserMapper;
 import dev.devloup.use_case.register.domain.UserRepository;
 

@@ -70,4 +70,20 @@ final class AccountTest {
     Assertions.assertThat(money).isEqualTo(sender.getBalance());
     Assertions.assertThat(reciver.getBalance()).isEqualTo(Money.ZERO);
   }
+
+  @Test
+  void add_found() {
+    var found = Money.of(20);
+    var account = Account.of(Money.ZERO);
+    account.addFound(found);
+    Assertions.assertThat(account.getBalance()).isEqualTo(Money.of(20));
+  }
+
+  @Test
+  void add_found_when_account_already_have_money() {
+    var found = Money.of(20);
+    var account = Account.of(Money.of(200));
+    account.addFound(found);
+    Assertions.assertThat(account.getBalance()).isEqualTo(Money.of(220));
+  }
 }

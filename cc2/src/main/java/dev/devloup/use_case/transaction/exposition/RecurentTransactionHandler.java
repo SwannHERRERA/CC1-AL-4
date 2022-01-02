@@ -26,7 +26,7 @@ public final class RecurentTransactionHandler {
     this.eventBus = Objects.requireNonNull(eventBus);
   }
 
-  public void batch() {
+  public void checkForPayment() {
     List<User> userSubscribtionToBeRenewed = userRepository.listAllNonActiveSubscribtion();
     for (User user : userSubscribtionToBeRenewed) {
       var account = user.getAccount();

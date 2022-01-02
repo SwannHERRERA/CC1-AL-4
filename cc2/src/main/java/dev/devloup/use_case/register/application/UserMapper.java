@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.devloup.shared.domain.User;
-import dev.devloup.use_case.register.exposition.UserResponse;
+import dev.devloup.shared.exposition.UserResponse;
 
 public final class UserMapper {
   public UserResponse mapUserToUserResponse(User user) {

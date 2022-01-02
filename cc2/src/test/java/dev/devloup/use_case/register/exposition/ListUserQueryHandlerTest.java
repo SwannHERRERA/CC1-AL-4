@@ -10,6 +10,7 @@ import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.domain.User;
 import dev.devloup.shared.domain.UserId;
 import dev.devloup.shared.domain.UserSubscribtion;
+import dev.devloup.shared.exposition.UserResponse;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
 import dev.devloup.use_case.register.application.UserMapper;
 import dev.devloup.use_case.register.domain.UserRepository;

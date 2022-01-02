@@ -40,4 +40,9 @@ public class Account {
     balance = balance.minus(moneySend);
     return Transaction.success(dest, this, moneySend);
   }
+
+  public Transaction addFound(Money amount) {
+    balance = balance.plus(amount);
+    return Transaction.success(this, null, amount);
+  }
 }

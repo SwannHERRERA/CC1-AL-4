@@ -64,7 +64,7 @@ public class Transaction implements ApplicationEvent {
   private Transaction(Account reciver, Account sender, Money amount, ZonedDateTime occurenceDate, TransactionId id,
       TransactionStatus status) {
     this.reciver = Objects.requireNonNull(reciver);
-    this.sender = Objects.requireNonNull(sender);
+    this.sender = sender;
     this.amount = Objects.requireNonNull(amount);
     this.occurenceDate = Objects.requireNonNull(occurenceDate);
     this.id = Objects.requireNonNull(id);

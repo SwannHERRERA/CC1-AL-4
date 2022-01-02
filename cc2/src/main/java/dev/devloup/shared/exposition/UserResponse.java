@@ -1,11 +1,11 @@
-package dev.devloup.use_case.register.exposition;
+package dev.devloup.shared.exposition;
 
 import java.util.Objects;
 
 import dev.devloup.shared.domain.UserId;
 import dev.devloup.shared.domain.UserStatus;
 
-public class UserResponse {
+public final class UserResponse {
   public final String id;
   public final String firstName;
   public final String lastName;
