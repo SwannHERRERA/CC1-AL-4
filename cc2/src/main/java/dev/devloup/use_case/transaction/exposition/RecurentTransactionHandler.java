@@ -8,10 +8,10 @@ import dev.devloup.core.ApplicationEvent;
 import dev.devloup.core.Config;
 import dev.devloup.core.EventBus;
 import dev.devloup.shared.domain.Account;
-import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.domain.Transaction;
 import dev.devloup.shared.domain.TransactionStatus;
 import dev.devloup.shared.domain.User;
+import dev.devloup.shared.domain.UserStatus;
 import dev.devloup.use_case.register.domain.UserRepository;
 
 public final class RecurentTransactionHandler {
@@ -31,19 +31,23 @@ public final class RecurentTransactionHandler {
     for (User user : userSubscribtionToBeRenewed) {
       var account = user.getAccount();
       var subscribiton = user.getSubscribtion();
-      var transaction = account.sendMoney(Money.of(Config.MONTHLY_SUBSCRIBTION_PRICE), plateformAccount);
+      var transaction = account.sendMoney(Config.MONTHLY_SUBSCRIBTION_PRICE, plateformAccount);
       if (transaction.getStatus() == TransactionStatus.ERROR) {
         user.updateSubscribtion(subscribiton.reject(ZonedDateTime.now()));
       } else {
         user.updateSubscribtion(subscribiton.validate(ZonedDateTime.now()));
       }
+      eventBus.notifyListeners(transaction);
     }
   }
 
   public Transaction startSubscribtion(User user) {
     var userAccount = user.getAccount();
     var userSubscribtion = user.getSubscribtion();
-    var transaction = userAccount.sendMoney(Money.of(Config.ENROLLMENT_PRICE), plateformAccount);
+    if (userSubscribtion.getStatus() == UserStatus.VERIFIED) {
+      throw new UserAlreadySubscribedException();
+    }
+    var transaction = userAccount.sendMoney(Config.ENROLLMENT_PRICE, plateformAccount);
     if (transaction.getStatus() == TransactionStatus.SUCCESSED) {
       user.updateSubscribtion(userSubscribtion.validate(ZonedDateTime.now()));
     } else {

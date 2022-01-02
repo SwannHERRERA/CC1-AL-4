@@ -6,7 +6,7 @@ import java.util.Objects;
 
 import dev.devloup.core.Config;
 
-public class UserSubscribtion {
+public final class UserSubscribtion {
   private final UserStatus status;
   private final ZonedDateTime lastBilling;
   private final Period billingFrequency;
@@ -20,6 +20,11 @@ public class UserSubscribtion {
     this.billingFrequency = Objects.requireNonNull(billingFrequency);
     this.subscribtionDate = Objects.requireNonNull(subscribtionDate);
     this.userId = Objects.requireNonNull(userId);
+  }
+
+  public static UserSubscribtion of(UserStatus status, ZonedDateTime lastBilling, Period billingFrequency,
+      ZonedDateTime subscribtionDate, UserId userId) {
+    return new UserSubscribtion(status, lastBilling, billingFrequency, subscribtionDate, userId);
   }
 
   public static UserSubscribtion newDefaultSubscribtion(UserId id) {

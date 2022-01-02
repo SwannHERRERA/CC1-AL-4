@@ -57,3 +57,4 @@ Samedi 1er janvier
 - Le scheduler
 - Faire de la documentation
 - Mon utilisateur il a rien pour mettre de l'argent sur son compte
+- faire un userBuilder

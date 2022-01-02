@@ -24,7 +24,7 @@ public class RegistrationController {
   }
 
   @POST
-  public Response post(UserRequest userRequest) {
+  public Response register(UserRequest userRequest) {
     try {
       var command = new CreateUserCommand(
           userRequest.firstName,
@@ -40,4 +40,5 @@ public class RegistrationController {
       return Response.status(Status.BAD_REQUEST).entity(e.toString()).build();
     }
   }
+
 }
