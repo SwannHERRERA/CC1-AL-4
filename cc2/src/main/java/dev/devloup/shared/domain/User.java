@@ -1,5 +1,6 @@
 package dev.devloup.shared.domain;
 
+import java.util.List;
 import java.util.Objects;
 
 import dev.devloup.core.Entity;
@@ -13,16 +14,25 @@ public class User {
   private final int age;
   private final Account account;
   private UserSubscribtion userSubscribtion;
+  private final List<Ability> abilities;
+  private final Profession profession;
+  private final ActivityPerimeter activityPerimeter;
+  private final DailyRate dailyRate;
 
   private User(UserId id, String firstName, String lastName, String email, int age, Account account,
       UserSubscribtion userSubscribtion) {
+    List<Ability> abilities = null;
     this.id = Objects.requireNonNull(id);
     this.firstName = Objects.requireNonNull(firstName);
     this.lastName = Objects.requireNonNull(lastName);
     this.email = Objects.requireNonNull(email.toLowerCase());
     this.age = Objects.requireNonNull(age);
     this.account = Objects.requireNonNull(account);
-    this.userSubscribtion = userSubscribtion;
+    this.userSubscribtion = Objects.requireNonNull(userSubscribtion);
+    this.abilities = Objects.requireNonNull(abilities);
+    this.profession = Profession.PLUMBER;
+    this.activityPerimeter = null;
+    this.dailyRate = null;
   }
 
   public static User of(UserId id, String firstName, String lastName, String email, int age, Account account,
@@ -69,11 +79,24 @@ public class User {
     return userSubscribtion;
   }
 
+  public List<Ability> getAbilities() {
+    return abilities;
+  }
+
+  public Profession getProfession() {
+    return profession;
+  }
+
   public UserStatus getStatus() {
-    if (userSubscribtion == null) {
-      return UserStatus.REJECTED;
-    }
     return userSubscribtion.getStatus();
+  }
+
+  public DailyRate getDailyRate() {
+    return dailyRate;
+  }
+
+  public ActivityPerimeter getActivityPerimeter() {
+    return activityPerimeter;
   }
 
   public void updateSubscribtion(UserSubscribtion subscribtion) {
