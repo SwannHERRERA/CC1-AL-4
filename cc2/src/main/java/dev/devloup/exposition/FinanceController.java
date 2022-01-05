@@ -10,7 +10,7 @@ public final class FinanceController {
     this.recurentTransactionHandler = recurentTransactionHandler;
   }
 
-  @Scheduled(every = "1 day")
+  @Scheduled(every = "P1D")
   public void checkForPayment() {
     recurentTransactionHandler.checkForPayment();
   }
