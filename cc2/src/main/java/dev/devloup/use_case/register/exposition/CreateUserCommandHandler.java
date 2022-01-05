@@ -25,6 +25,10 @@ public final class CreateUserCommandHandler implements CreateUserUseCase {
         .withAge(command.age)
         .withDefaultSubscrbtion()
         .withInitalBalance(command.startBalance)
+        .withAbilitiesString(command.abilities)
+        .withActivityPerimeter(command.longitude, command.latitude, command.activityRadius)
+        .withDailyRate(command.dailyRate)
+        .withProfession(command.profession)
         .build();
 
     userRepository.add(user);

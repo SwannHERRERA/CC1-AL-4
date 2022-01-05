@@ -1,6 +1,5 @@
 package dev.devloup.shared.domain;
 
-import java.util.List;
 import java.util.Objects;
 
 import dev.devloup.core.Entity;
@@ -14,14 +13,10 @@ public class User {
   private final int age;
   private final Account account;
   private UserSubscribtion userSubscribtion;
-  private final List<Ability> abilities;
-  private final Profession profession;
-  private final ActivityPerimeter activityPerimeter;
-  private final DailyRate dailyRate;
+  private final ProfessionalAbilites professionalAbilites;
 
   private User(UserId id, String firstName, String lastName, String email, int age, Account account,
-      UserSubscribtion userSubscribtion) {
-    List<Ability> abilities = null;
+      UserSubscribtion userSubscribtion, ProfessionalAbilites professionalAbilites) {
     this.id = Objects.requireNonNull(id);
     this.firstName = Objects.requireNonNull(firstName);
     this.lastName = Objects.requireNonNull(lastName);
@@ -29,17 +24,14 @@ public class User {
     this.age = Objects.requireNonNull(age);
     this.account = Objects.requireNonNull(account);
     this.userSubscribtion = Objects.requireNonNull(userSubscribtion);
-    this.abilities = Objects.requireNonNull(abilities);
-    this.profession = Profession.PLUMBER;
-    this.activityPerimeter = null;
-    this.dailyRate = null;
+    this.professionalAbilites = Objects.requireNonNull(professionalAbilites);
   }
 
   public static User of(UserId id, String firstName, String lastName, String email, int age, Account account,
-      UserSubscribtion subscribtion) throws IllegalArgumentException {
+      UserSubscribtion subscribtion, ProfessionalAbilites professionalAbilites) throws IllegalArgumentException {
     User user = null;
     try {
-      user = new User(id, firstName, lastName, email, age, account, subscribtion);
+      user = new User(id, firstName, lastName, email, age, account, subscribtion, professionalAbilites);
     } catch (Exception e) {
       throw new IllegalArgumentException("error arguement throw null pointer exception");
     }
@@ -79,24 +71,12 @@ public class User {
     return userSubscribtion;
   }
 
-  public List<Ability> getAbilities() {
-    return abilities;
-  }
-
-  public Profession getProfession() {
-    return profession;
-  }
-
   public UserStatus getStatus() {
     return userSubscribtion.getStatus();
   }
 
-  public DailyRate getDailyRate() {
-    return dailyRate;
-  }
-
-  public ActivityPerimeter getActivityPerimeter() {
-    return activityPerimeter;
+  public ProfessionalAbilites getProfessionalAbilites() {
+    return professionalAbilites;
   }
 
   public void updateSubscribtion(UserSubscribtion subscribtion) {

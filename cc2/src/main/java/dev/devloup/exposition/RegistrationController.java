@@ -31,7 +31,13 @@ public class RegistrationController {
           userRequest.lastName,
           userRequest.email,
           userRequest.age,
-          0);
+          0,
+          userRequest.abilities,
+          userRequest.profession,
+          userRequest.longitude,
+          userRequest.latitude,
+          userRequest.activityRadius,
+          userRequest.dailyRate);
       var event = createUserUseCase.createUser(command);
       var response = new CreateUserResponse(event.getUser().getId(), event.getUUID());
       return Response.ok(response).build();

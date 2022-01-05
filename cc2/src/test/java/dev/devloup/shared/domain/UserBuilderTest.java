@@ -1,6 +1,8 @@
 package dev.devloup.shared.domain;
 
 import java.time.ZonedDateTime;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
@@ -19,6 +21,11 @@ public class UserBuilderTest {
   private final Money initalBalance = Money.ZERO;
   private final UserSubscribtion subscribtion = UserSubscribtion.of(UserStatus.VERIFIED, now,
       Config.DEFAULT_SUBSCRIBTION_PERIOD, now, userId);
+  private final ActivityPerimeter activityPerimeter = ActivityPerimeter.of(3.1204, 4.431004, 0.1);
+  private final Profession profession = Profession.ELECTRICIAN;
+  private final List<Ability> abilites = Collections.emptyList();
+  private final ProfessionalAbilites professionalAbilites = ProfessionalAbilites.of(abilites, profession,
+      activityPerimeter, DailyRate.of(300));
 
   @Test
   void test_default_user_construction() {
@@ -28,7 +35,8 @@ public class UserBuilderTest {
         .withEmail(email)
         .withLastname(lastname)
         .withInitalBalance(initalBalance)
-        .withSubscribtion(subscribtion);
+        .withSubscribtion(subscribtion)
+        .withProfessionalAbilites(professionalAbilites);
     assertBuildIsCorrect(builder);
   }
 
@@ -42,6 +50,7 @@ public class UserBuilderTest {
           .withLastname(lastname)
           .withInitalBalance(initalBalance)
           .withSubscribtion(subscribtion)
+          .withProfessionalAbilites(professionalAbilites)
           .build();
     }).isInstanceOf(IllegalArgumentException.class);
   }
@@ -56,6 +65,7 @@ public class UserBuilderTest {
           .withLastname(lastname)
           .withInitalBalance(initalBalance)
           .withSubscribtion(subscribtion)
+          .withProfessionalAbilites(professionalAbilites)
           .build();
     }).isInstanceOf(IllegalArgumentException.class);
   }
@@ -70,6 +80,7 @@ public class UserBuilderTest {
           .withLastname(lastname)
           .withInitalBalance(-1)
           .withSubscribtion(subscribtion)
+          .withProfessionalAbilites(professionalAbilites)
           .build();
     }).isInstanceOf(NegativeMoneyAmount.class);
   }

@@ -1,12 +1,17 @@
 package dev.devloup.use_case.register.exposition;
 
+import java.util.Collections;
 import java.util.UUID;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import dev.devloup.shared.domain.Account;
+import dev.devloup.shared.domain.ActivityPerimeter;
+import dev.devloup.shared.domain.DailyRate;
 import dev.devloup.shared.domain.Money;
+import dev.devloup.shared.domain.Profession;
+import dev.devloup.shared.domain.ProfessionalAbilites;
 import dev.devloup.shared.domain.User;
 import dev.devloup.shared.domain.UserId;
 import dev.devloup.shared.domain.UserSubscribtion;
@@ -20,6 +25,8 @@ final class ListUserQueryHandlerTest {
   private final UserRepository userRepository;
   private final UserMapper userMapper;
   private final User defaultUser;
+  private final ProfessionalAbilites professionalAbilites = ProfessionalAbilites.of(Collections.emptyList(),
+      Profession.ELECTRICIAN, ActivityPerimeter.of(0, 0, 0), DailyRate.of(50));
 
   public ListUserQueryHandlerTest() {
     this.userRepository = new InMemoryUserRepository();
@@ -29,7 +36,7 @@ final class ListUserQueryHandlerTest {
     this.defaultUser = User.of(userId, "firstName",
         "lastName",
         "swann@graines-octets.com", 21, Account.of(Money.ZERO),
-        UserSubscribtion.newDefaultSubscribtion(userId));
+        UserSubscribtion.newDefaultSubscribtion(userId), professionalAbilites);
   }
 
   @Test
@@ -74,7 +81,7 @@ final class ListUserQueryHandlerTest {
   void get_all_user_when_we_have_many_user() {
     var userId = UserId.generate();
     var user2 = User.of(userId, "firstname2", "lastname2", "email@email.sh", 909,
-        Account.of(Money.ZERO), UserSubscribtion.newDefaultSubscribtion(userId));
+        Account.of(Money.ZERO), UserSubscribtion.newDefaultSubscribtion(userId), professionalAbilites);
     var userResponse = userMapper.mapUserToUserResponse(defaultUser);
     var user2Response = userMapper.mapUserToUserResponse(user2);
     userRepository.add(defaultUser);

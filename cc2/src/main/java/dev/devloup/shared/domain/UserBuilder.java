@@ -2,10 +2,11 @@ package dev.devloup.shared.domain;
 
 import java.time.Period;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 import dev.devloup.shared.domain.exception.NegativeMoneyAmount;
 
-public class UserBuilder {
+public final class UserBuilder {
   private final UserId id;
   private String firstname;
   private String lastname;
@@ -13,6 +14,10 @@ public class UserBuilder {
   private String email;
   private Account account;
   private UserSubscribtion subscrbition;
+  private Profession profession;
+  private List<Ability> abilities;
+  private DailyRate dailyRate;
+  private ActivityPerimeter activityPerimeter;
 
   private UserBuilder(UserId id) {
     this.id = id;
@@ -68,7 +73,57 @@ public class UserBuilder {
     return this;
   }
 
+  public UserBuilder withAbilities(List<Ability> abilities) {
+    this.abilities = abilities;
+    return this;
+  }
+
+  public UserBuilder withAbilitiesString(List<String> abilitiesString) {
+    List<Ability> abilities = abilitiesString.stream().map(a -> Ability.of(a)).toList();
+    this.abilities = abilities;
+    return this;
+  }
+
+  public UserBuilder withProfession(Profession profession) {
+    this.profession = profession;
+    return this;
+  }
+
+  public UserBuilder withProfession(String profession) {
+    this.profession = Profession.valueOf(profession);
+    return this;
+  }
+
+  public UserBuilder withActivityPerimeter(double longitude, double latitude, double activityRadius) {
+    this.activityPerimeter = ActivityPerimeter.of(longitude, latitude, activityRadius);
+    return this;
+  }
+
+  public UserBuilder withActivityPerimeter(ActivityPerimeter activityPerimeter) {
+    this.activityPerimeter = activityPerimeter;
+    return this;
+  }
+
+  public UserBuilder withDailyRate(int dailyRate) {
+    this.dailyRate = DailyRate.of(dailyRate);
+    return this;
+  }
+
+  public UserBuilder withDailyRate(DailyRate dailyRate) {
+    this.dailyRate = dailyRate;
+    return this;
+  }
+
+  public UserBuilder withProfessionalAbilites(ProfessionalAbilites professionalAbilites) {
+    this.dailyRate = professionalAbilites.getDailyRate();
+    this.activityPerimeter = professionalAbilites.getActivityPerimeter();
+    this.abilities = professionalAbilites.getAbilities();
+    this.profession = professionalAbilites.getProfession();
+    return this;
+  }
+
   public User build() {
-    return User.of(id, firstname, lastname, email, age, account, subscrbition);
+    var professionalAbilites = ProfessionalAbilites.of(abilities, profession, activityPerimeter, dailyRate);
+    return User.of(id, firstname, lastname, email, age, account, subscrbition, professionalAbilites);
   }
 }

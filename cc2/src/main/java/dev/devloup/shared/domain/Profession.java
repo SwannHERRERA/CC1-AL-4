@@ -1,5 +1,5 @@
 package dev.devloup.shared.domain;
 
 public enum Profession {
-  PLUMBER
+  PLUMBER, BUILDER, ELECTRICIAN
 }
