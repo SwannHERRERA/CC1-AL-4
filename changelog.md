@@ -1,4 +1,5 @@
 # Changelog
+
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -7,27 +8,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ## [0.1.0] - 2021-10-31
+
 ### Added
+
 - start the project
 - entity user
 
 ### Changed
+
 - stop using UserId for wrapping UUID use UUID directly
 
 ## [0.1.1] - 2021-11-03
+
 I think now my main job is to create the command for apply for membership
 The apply for membership can be see in many maner. I want to bring out two :
+
 - request for register
 - request upgrade of the user status
 
-### Added
+### Added [0.1.1]
+
 - create a command
 - create custom Domain exception
 - move forward for userRepository and UserService
 
 No TDD yet only structures
 
-### Changed
+### Changed [0.1.1]
+
 - stop using UserId for wrapping UUID use UUID directly
 
 ### Removed
@@ -36,33 +44,34 @@ No TDD yet only structures
 
 ## 2021-11-04
 
-### Added
+### Added 2021-11-04
+
 - user Service implementation
 - test
 - fake Implementation of repo in test
 
 ## 2021-11-06
 
-### Added
-- add event bus system
+### Added 2021-11-06
 
-## 2021-11-06
-
-### Added
 - add event bus system
 - test for event bus
 - mockito
 
-### Changed
+### Changed 2021-11-06
+
 - Event bus system now supports only one Event Type by Bus
 
 ## 2021-11-21
 
-### Added
+### Added 2021-11-21
+
 - docs
 - logging system
 - Gestion du cas ou l'utilisateur est refusé pour manque d'argent.
 
+## [1.0.0] - 2021-12-04
 
-[Unreleased]: 
-https://github.com/SwannHERRERA/CC1-AL-4/commits/develop/changelog.md
+Rendu du CC1
+
+[unreleased]: https://github.com/SwannHERRERA/CC1-AL-4/commits/develop/changelog.md
