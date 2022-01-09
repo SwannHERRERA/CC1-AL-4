@@ -75,6 +75,12 @@ Quarkus me permet de généré une interface swagger qui est accèssible en mode
 
 Elle a en plus l'interêt d'exposé tout les DTO
 
+## Scheduler
+
+Pour le scheduler j'ai decidé d'utiliser la librairie de quarkus `quarkus-scheduler`
+
+et Dans `FinanceController` j'utilise l'anotation @Scheduled(every) pour lancé le traitment de manière récurrente
+
 ## Lancement de l'application
 
 > Etre dans le folder cc2
@@ -86,3 +92,15 @@ Elle a en plus l'interêt d'exposé tout les DTO
 Cette comande lance a la fois l'application en mode developpement mais aussi les test et l'interface swagger.
 
 personnelement j'utlise mon IDE tout de même pour lancé les tests.
+
+Flow d'une requête HTTP dans l'application
+
+- La requête arrive sur l'application
+- Quarkus la map a un type que j'ai défini en fonction de la route
+- Verification via les validateurs de quarkus que la requête est confome
+- On arrive au controller
+- Ce controlleur crée la query associé au traitement
+- Il envoie ce traitement au useCase / Handler
+- Ce Handler fait un traitement et renvoie une valeur / entité
+- Cette ressouce renvoyer au controlleur
+- Pour être mappé en Response DTO qui sera renvoyé
