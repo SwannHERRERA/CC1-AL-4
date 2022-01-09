@@ -9,6 +9,7 @@ import java.util.Optional;
 import dev.devloup.shared.domain.User;
 import dev.devloup.shared.domain.UserId;
 import dev.devloup.shared.domain.UserStatus;
+import dev.devloup.shared.domain.exception.EmailAlreadyExist;
 import dev.devloup.use_case.register.domain.UserRepository;
 
 public final class InMemoryUserRepository implements UserRepository {
@@ -27,7 +28,7 @@ public final class InMemoryUserRepository implements UserRepository {
   @Override
   public void add(User user) throws IllegalArgumentException {
     if (findByEmail(user.getEmail()).isPresent()) {
-      throw new IllegalArgumentException("Email already exists");
+      throw new EmailAlreadyExist(user.getEmail());
     }
     userList.add(user);
   }

@@ -19,20 +19,30 @@ import dev.devloup.use_case.register.exposition.ListUserUseCase;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AdminUserController {
   private final ListUserUseCase listUserUseCase;
+  private final ErrorHandler errorHandler;
 
-  public AdminUserController(ListUserUseCase listUserUseCase) {
+  public AdminUserController(ListUserUseCase listUserUseCase, ErrorHandler errorHandler) {
     this.listUserUseCase = listUserUseCase;
+    this.errorHandler = errorHandler;
   }
 
   @GET
   public List<UserResponse> getAllUsers() {
-    ListAllUserQuery query = new ListAllUserQuery();
-    return listUserUseCase.listAll(query);
+    try {
+      ListAllUserQuery query = new ListAllUserQuery();
+      return listUserUseCase.listAll(query);
+    } catch (Exception e) {
+      return errorHandler.handleException(e);
+    }
   }
 
   @GET
   @Path("/{id}")
   public UserResponse getUser(@PathParam("id") GetUserByIdQuery id) {
-    return listUserUseCase.get(id);
+    try {
+      return listUserUseCase.get(id);
+    } catch (Exception e) {
+      return errorHandler.handleException(e);
+    }
   }
 }

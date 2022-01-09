@@ -3,8 +3,12 @@ package dev.devloup.use_case.register;
 import javax.enterprise.context.ApplicationScoped;
 
 import dev.devloup.core.ApplicationEvent;
+import dev.devloup.core.Config;
 import dev.devloup.core.EventBus;
+import dev.devloup.core.Logger;
+import dev.devloup.core.LoggerFactory;
 import dev.devloup.core.SimpleEventBus;
+import dev.devloup.exposition.ErrorHandler;
 import dev.devloup.shared.domain.Account;
 import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
@@ -56,5 +60,15 @@ public class RegisterConfiguration {
   @ApplicationScoped
   public RecurentTransactionHandler recurentTransactionHandler() {
     return new RecurentTransactionHandler(inMemoryRepository(), applicationAccount(), eventBus());
+  }
+
+  @ApplicationScoped
+  public Logger logger() {
+    return LoggerFactory.createFileLogger(Config.getLogFolder());
+  }
+
+  @ApplicationScoped
+  public ErrorHandler errorHandler() {
+    return new ErrorHandler(logger());
   }
 }

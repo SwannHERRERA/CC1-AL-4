@@ -20,16 +20,20 @@ import dev.devloup.use_case.addMoney.exposition.AddMoneyResponse;
 @Consumes(MediaType.APPLICATION_JSON)
 public final class UserController {
   private final AddMoneyCommandHandler addMoneyCommandHandler;
+  private final ErrorHandler errorHandler;
 
-  public UserController(AddMoneyCommandHandler addMoneyCommandHandler) {
+  public UserController(AddMoneyCommandHandler addMoneyCommandHandler, ErrorHandler errorHandler) {
     this.addMoneyCommandHandler = Objects.requireNonNull(addMoneyCommandHandler);
+    this.errorHandler = errorHandler;
   }
 
   @Path("/add-money")
   public AddMoneyResponse addMoney(AddMoneyRequest request) {
-    var command = new AddMoneyCommand(Money.of(request.amount), UserId.of(UUID.fromString(request.userId)));
-    AddMoneyResponse addMoneyResponse = addMoneyCommandHandler.addMoney(command);
-    return addMoneyResponse;
-
+    try {
+      var command = new AddMoneyCommand(Money.of(request.amount), UserId.of(UUID.fromString(request.userId)));
+      return addMoneyCommandHandler.addMoney(command);
+    } catch (Exception e) {
+      errorHandler.handleException(e);
+    }
   }
 }
