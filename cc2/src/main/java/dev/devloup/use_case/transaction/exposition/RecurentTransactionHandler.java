@@ -45,7 +45,7 @@ public final class RecurentTransactionHandler {
     var userAccount = user.getAccount();
     var userSubscribtion = user.getSubscribtion();
     if (userSubscribtion.getStatus() == UserStatus.VERIFIED) {
-      throw new UserAlreadySubscribedException();
+      throw new UserAlreadySubscribed(user);
     }
     var transaction = userAccount.sendMoney(Config.ENROLLMENT_PRICE, plateformAccount);
     if (transaction.getStatus() == TransactionStatus.SUCCESSED) {
