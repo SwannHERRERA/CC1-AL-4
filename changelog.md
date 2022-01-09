@@ -9,12 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2021-10-31
 
-### Added
+### Added 2021-10-31
 
 - start the project
 - entity user
 
-### Changed
+### Changed 2021-10-31
 
 - stop using UserId for wrapping UUID use UUID directly
 
@@ -73,5 +73,21 @@ No TDD yet only structures
 ## [1.0.0] - 2021-12-04
 
 Rendu du CC1
+
+## [2.0.0] - 2022-01-09
+
+### Added
+
+- Quarkus web framework
+- scheduler
+- userBuilder
+- Transaction system
+- shared package
+- Single eventbus
+- addMoney command flow
+
+### Changed
+
+- now i use a single event bus
 
 [unreleased]: https://github.com/SwannHERRERA/CC1-AL-4/commits/develop/changelog.md
