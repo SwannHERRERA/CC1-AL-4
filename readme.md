@@ -2,6 +2,8 @@
 
 ## [Lien github](<(https://github.com/SwannHERRERA/CC1-AL-4)>)
 
+## [CC2 tag](https://github.com/SwannHERRERA/CC1-AL-4/tree/cc2)
+
 Le CC2 est dans le repo du cc1 que je vais renommé une fois corrigé.
 
 le cc2 est dans un nouveau dossier (cc2). L'arrivé de quarkus ma plutôt amnené à recrée un projet et a migré mes class dedans plutôt que de rajouté quarkus dans le projet du CC1.
