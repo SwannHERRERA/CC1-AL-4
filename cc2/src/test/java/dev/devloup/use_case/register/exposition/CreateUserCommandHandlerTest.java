@@ -15,6 +15,7 @@ import dev.devloup.core.EventBus;
 import dev.devloup.core.Listener;
 import dev.devloup.core.SimpleEventBus;
 import dev.devloup.dummys.DummyEnrollementListener;
+import dev.devloup.shared.domain.exception.EmailAlreadyExist;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
 
 final class CreateUserCommandHandlerTest {
@@ -67,8 +68,7 @@ final class CreateUserCommandHandlerTest {
         latitude, activityRadius, dailyRate);
     commandHandler.createUser(command);
     Assertions.assertThatThrownBy(() -> commandHandler.createUser(command))
-        .isInstanceOf(IllegalArgumentException.class)
-        .hasMessageContaining("Email already exists");
+        .isInstanceOf(EmailAlreadyExist.class);
   }
 
   @Test

@@ -1,4 +1,4 @@
-package dev.devloup.use_case.register;
+package dev.devloup.exposition;
 
 import javax.enterprise.context.ApplicationScoped;
 
@@ -8,7 +8,6 @@ import dev.devloup.core.EventBus;
 import dev.devloup.core.Logger;
 import dev.devloup.core.LoggerFactory;
 import dev.devloup.core.SimpleEventBus;
-import dev.devloup.exposition.ErrorHandler;
 import dev.devloup.shared.domain.Account;
 import dev.devloup.shared.domain.Money;
 import dev.devloup.shared.infrastructure.InMemoryUserRepository;
@@ -20,7 +19,7 @@ import dev.devloup.use_case.register.exposition.ListUserQueryHandler;
 import dev.devloup.use_case.transaction.exposition.RecurentTransactionHandler;
 
 @ApplicationScoped
-public class RegisterConfiguration {
+public class ApplicationConfiguration {
 
   @ApplicationScoped
   public Account applicationAccount() {
@@ -65,10 +64,5 @@ public class RegisterConfiguration {
   @ApplicationScoped
   public Logger logger() {
     return LoggerFactory.createFileLogger(Config.getLogFolder());
-  }
-
-  @ApplicationScoped
-  public ErrorHandler errorHandler() {
-    return new ErrorHandler(logger());
   }
 }

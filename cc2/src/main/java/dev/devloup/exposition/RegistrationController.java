@@ -6,7 +6,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 
 import dev.devloup.use_case.register.exposition.CreateUserCommand;
 import dev.devloup.use_case.register.exposition.CreateUserResponse;
@@ -25,26 +24,21 @@ public class RegistrationController {
 
   @POST
   public Response register(UserRequest userRequest) {
-    try {
-      var command = new CreateUserCommand(
-          userRequest.firstName,
-          userRequest.lastName,
-          userRequest.email,
-          userRequest.age,
-          0,
-          userRequest.abilities,
-          userRequest.profession,
-          userRequest.longitude,
-          userRequest.latitude,
-          userRequest.activityRadius,
-          userRequest.dailyRate);
-      var event = createUserUseCase.createUser(command);
-      var response = new CreateUserResponse(event.getUser().getId(), event.getUUID());
-      return Response.ok(response).build();
-    } catch (Exception e) {
-      // TODO catch many type of error somtime render 500 / 400 email already exist
-      return Response.status(Status.BAD_REQUEST).entity(e.toString()).build();
-    }
+    var command = new CreateUserCommand(
+        userRequest.firstName,
+        userRequest.lastName,
+        userRequest.email,
+        userRequest.age,
+        0,
+        userRequest.abilities,
+        userRequest.profession,
+        userRequest.longitude,
+        userRequest.latitude,
+        userRequest.activityRadius,
+        userRequest.dailyRate);
+    var event = createUserUseCase.createUser(command);
+    var response = new CreateUserResponse(event.getUser().getId(), event.getUUID());
+    return Response.ok(response).build();
   }
 
 }
