@@ -89,5 +89,6 @@ Rendu du CC1
 ### Changed
 
 - now i use a single event bus
+- Package separation by feature
 
 [unreleased]: https://github.com/SwannHERRERA/CC1-AL-4/commits/develop/changelog.md
