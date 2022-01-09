@@ -1,107 +1,108 @@
-## [Lien github]((https://github.com/SwannHERRERA/CC1-AL-4))
+# Trade Me
 
-[https://github.com/SwannHERRERA/CC1-AL-4](https://github.com/SwannHERRERA/CC1-AL-4)
-[tag du rendu](https://github.com/SwannHERRERA/CC1-AL-4/releases/tag/rendu)
-# Objectif du projet
+## [Lien github](<(https://github.com/SwannHERRERA/CC1-AL-4)>)
 
-Conception & développement d’un module logiciel de gestion des inscriptions  d’une solution e-commerce, 
-comportant une fonction d’ajout d’un membre.
+## [CC2 tag](https://github.com/SwannHERRERA/CC1-AL-4/tree/cc2)
 
-## Descriptif
+Le CC2 est dans le repo du cc1 que je vais renommé une fois corrigé.
 
-- Respect des patterns logiciels et des concepts objets :
-  - Pattern value Objectif
-  - Pattern Entity
-  - Pattern Repository
-  - Pattern Strategy
-  - Injection de dependance
-- Favoriser une approche modulaire du code en gardant un maximum d'options le plus longtemps possible
-- Favoriser le polymorphisme
-- Respecter l'intention métier dans le code
-- Utiliser des stubs / dummy
-- Justifier certains critères de qualité si besoin
+le cc2 est dans un nouveau dossier (cc2). L'arrivé de quarkus ma plutôt amnené à recrée un projet et a migré mes class dedans plutôt que de rajouté quarkus dans le projet du CC1.
 
-# Sujet
+## Choix
 
-![sujet](assets/sujet.png)
+J'ai donc choisi Quarkus principalement par curiosité.
 
+Certain choix technique sont détailler dans le dossier Architectual Decision
 
-# Description de la solution proposée
+- [IOC container et expostion](Architectural-Decision/Exposition_and_configuration.md)
+- [user exceptions](Architectural-Decision/UserExceptions.md)
 
-## Fonctionnement
+J'ai décidé de faire un package shared et un package use case pour avoir à la fois un découpage par structure de fichier mais quand même d'avoir une base commune.
 
-On a un user service qui reçoit une commande de création d'utilisateur.
-Si l'utilisateur est créé alors on lance un événement qui est partagé à travers d'un bus d'événement.
+## Gestion des erreurs
 
-Dans le fonctionnement actuel de l'application un "EnrollementListener" écoute cette évenement et qui va prendre de l'argent dans le compte de l'utilisateur, si l'utilisateur n'en a pas assez alors il prend le status refusé sinon il est validé.
+Ici je passe uniquement par quarkus c'est a dir eque je déclanche des excetpions (java ou custom). Et je crée des Handlers dans mon dossier expostion qui renvoie une réponse associé.
 
-## Choix d'implémentation
+### Erreur client
 
-### Engine
+Il se peut que l'on fasse une erreur dans le formatage de la query, ou de la command dans sa requette HTTP ou autre, ce type d'erreur est directement géré par Quarkus grace a un system de validator sur les "Request"
 
-J'ai décidé de passer par un engine, pour validé les utilisateurs. La vérification est faite au sein de user. Je 
-déclenche une exception quand le user n'est pas valide.
+## Package exposition
 
->Un choix plus judicieux aurait probablement été de passer par un système de notification, car la construction de l'exception va être de plus en plus complexe au fur et à mesure que l'on rajoute des règles à la construction d'un user.
+Il y a pluisieurs package exposition un dans chaque use_case un dans shared et un dans java qui consert l'exposition et ses "port" vers l'exterieurs.
 
-La vérification de l'email (unique) quant à elle ce fait au niveau du repository. Dans ce cas, l'entité User est correct, mais elle n'a pas sa place au sein de l'application.
+Dans ce package j'ai a la fois les controllers web mais aussi le container IOC, une route qui est utilisé par le scheduler
 
-### EventBus
+## Use case
 
-Il y a deux événements possibles. 
-- La création d'un utilisateur
-- Le payement
+J'ai 3 use case pricipaux :
 
-Dans les deux cas, j'ai utilisé un système d'eventBus pour pouvoir écouté ces événements.
+- AddMoney (rajout d'argent sur son compte de la part d'un utilisateur)
+- register (inscription)
+- transaction (process lié a la finance)
 
+## CQS
 
-### Account
+Depuis le CC1 j'utilise un wrapper pour mes commands.
+par contre j'utilisais un userService. qui aujourd'hui est découpé en commandHandler et QueryHandler.
 
-Les utilisateurs n'ont pas directement leur argent, pour cela on passe par un compte.
+## Money
 
-L'application a elle aussi un compte.
+Comme dans le CC1 je garde cette idée de value object nottament pour ce qui est de l'argent dans l'application.
 
-En faisant ce choix je decorèle le compte de l'utilisateur, c'est donc plus facile d'imaginer d'autre entité comme l'application avec un compte sans être des User, c'est aussi possible d'imaginé qu'un utilisateur pourrait avoir plusieurs compte.
+### Transaction
 
-### Money
+Par contre j'ai crée un objets transaction qui est un évenement.
 
-Dans l'optique d'évité une "primitive obsession" j'ai utilisé la class Money pour wrapper les flux et montant financier.
+## UserBuilder
 
-Elle est fermée à une utilisation dans les nombres négatifs, Une exception dédiée à ces cas a été créé.
+L'entité User commançais a devenir un peu lourde j'ai donc décidé de la découpé en plusieurs plus petite:
 
-### Service et UseCase
+- account
+- subscribtion
+- professional Abilities
 
-Pour faire abstraction de la logique technique et me focaliser sur la logique métier. J'utilise un service (userService) qui va répondre a un cas d'utilisation (CreateUserUseCase).
+Pour des raisons de simplcité et j'ai crée un builder pour le user avec l'intention d'être fluent dans la sythaxe.
+qui permet de crée un utilisateur sans savoir connaitre le découpage interne
 
-### Repository
+## Test
 
-Pour gérer ma collection d'utilisateur, j'ai fais le choix d'utiliser le pattern repository pour plusieurs raisons :
+L'application est partiellement couverte par des test unitaires nottament sur la partie domaine.
 
-- Le système de gestion de bases de données n'a pas encore été choisi
-- J'ai une contrainte d'unicité sur l'utilisateur que je vois beaucoup plus au sein d'un répository que d'autres choses
+J'ai essayé de faire des tests d'intégrations avec quarkus, car je trouve la sythaxe intéréssante. Je ne suis pas aller jusq'au bout. C'est surement quelque chose que je vais essayé de continué par la suite.
 
-### Command
+## Swagger UI
 
-J'ai fait le choix de structurer ma demande au service via une command, qui est traité dans le cas d'utilisation. Pour l'instant, je ne sais pas qu'elle structure va prendre la commande (REST API, graphql, CLI ...)
+Quarkus me permet de généré une interface swagger qui est accèssible en mode developpement sur [swagger: http://localhost:8080/q/swagger-ui](http://localhost:8080/q/swagger-ui)
 
-## Run the App
+Elle a en plus l'interêt d'exposé tout les DTO
 
-run all command in swannherrera folder
+## Scheduler
 
-run test
+Pour le scheduler j'ai decidé d'utiliser la librairie de quarkus `quarkus-scheduler`
 
-```zsh
-mvn test
+et Dans `FinanceController` j'utilise l'anotation @Scheduled(every) pour lancé le traitment de manière récurrente
+
+## Lancement de l'application
+
+> Etre dans le folder cc2
+
+```sh
+./mvnw compile quarkus:dev
 ```
 
-Test report command
+Cette comande lance a la fois l'application en mode developpement mais aussi les test et l'interface swagger.
 
-```zsh
-mvn clean jacoco:prepare-agent install jacoco:report
-```
+personnelement j'utlise mon IDE tout de même pour lancé les tests.
 
-Package and run the app
+Flow d'une requête HTTP dans l'application
 
-```zsh
-mvn package exec:java
-```
+- La requête arrive sur l'application
+- Quarkus la map a un type que j'ai défini en fonction de la route
+- Verification via les validateurs de quarkus que la requête est confome
+- On arrive au controller
+- Ce controlleur crée la query associé au traitement
+- Il envoie ce traitement au useCase / Handler
+- Ce Handler fait un traitement et renvoie une valeur / entité
+- Cette ressouce renvoyer au controlleur
+- Pour être mappé en Response DTO qui sera renvoyé
